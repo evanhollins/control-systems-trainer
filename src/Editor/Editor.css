@@ -1,0 +1,19 @@
+.editorContainer {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.editorRow {
+  flex: 1 1 auto;
+}
+
+.editorContainer .row {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.editorContainer button {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
