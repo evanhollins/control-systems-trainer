@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/control-systems-trainer/static/css/main.afb21dfd.chunk.css",
+    "main.js": "/control-systems-trainer/static/js/main.5d7d7a52.chunk.js",
+    "main.js.map": "/control-systems-trainer/static/js/main.5d7d7a52.chunk.js.map",
+    "runtime-main.js": "/control-systems-trainer/static/js/runtime-main.104b6895.js",
+    "runtime-main.js.map": "/control-systems-trainer/static/js/runtime-main.104b6895.js.map",
+    "static/css/2.f2512455.chunk.css": "/control-systems-trainer/static/css/2.f2512455.chunk.css",
+    "static/js/2.ae362d1b.chunk.js": "/control-systems-trainer/static/js/2.ae362d1b.chunk.js",
+    "static/js/2.ae362d1b.chunk.js.map": "/control-systems-trainer/static/js/2.ae362d1b.chunk.js.map",
+    "static/js/3.872ec6b6.chunk.js": "/control-systems-trainer/static/js/3.872ec6b6.chunk.js",
+    "static/js/3.872ec6b6.chunk.js.map": "/control-systems-trainer/static/js/3.872ec6b6.chunk.js.map",
+    "index.html": "/control-systems-trainer/index.html",
+    "static/css/2.f2512455.chunk.css.map": "/control-systems-trainer/static/css/2.f2512455.chunk.css.map",
+    "static/css/main.afb21dfd.chunk.css.map": "/control-systems-trainer/static/css/main.afb21dfd.chunk.css.map",
+    "static/js/2.ae362d1b.chunk.js.LICENSE.txt": "/control-systems-trainer/static/js/2.ae362d1b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.104b6895.js",
+    "static/css/2.f2512455.chunk.css",
+    "static/js/2.ae362d1b.chunk.js",
+    "static/css/main.afb21dfd.chunk.css",
+    "static/js/main.5d7d7a52.chunk.js"
+  ]
+}
