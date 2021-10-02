@@ -39,6 +39,8 @@ class DCMotor {
     this.gearRatio = gearRatio;
 
     this.torqueConstant = this.stallTorque.value / this.noLoadSpeed.value;
+
+    this.voltage = 0;
   }
 
   inertia() {
@@ -55,12 +57,11 @@ class DCMotor {
    * Calculate the output torque of the motor given current
    * rotational velocity and input voltage. Currently ignores motor
    * inductance.
-   * @param {Voltage} voltage 
    * @param {RotationalVelocity} rotationalVelocity 
    * @returns {Torque}
    */
-  torque(voltage, rotationalVelocity) {
-    let percentVoltage = voltage.value / this.operatingVoltage.value;
+  torque(rotationalVelocity) {
+    let percentVoltage = this.voltage.value / this.operatingVoltage.value;
     let fullVoltageTorque = this.stallTorque.value - (rotationalVelocity.value * this.torqueConstant);
 
     return Torque.nm(fullVoltageTorque * percentVoltage);
