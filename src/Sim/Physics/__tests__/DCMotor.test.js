@@ -18,29 +18,29 @@ let rotorMass = Mass.g(83);
 let gearRatio = 19.2;
 
 let dcMotor = new DCMotor(
-  operatingVoltage,
-  stallTorque,
-  stallCurrent,
-  breakawayTorque,
-  noLoadSpeed,
-  noLoadCurrent,
-  rotorRadius,
-  rotorMass,
-  gearRatio
+    operatingVoltage,
+    stallTorque,
+    stallCurrent,
+    breakawayTorque,
+    noLoadSpeed,
+    noLoadCurrent,
+    rotorRadius,
+    rotorMass,
+    gearRatio
 )
 
 it('calculates inertia correctly', () => {
-  expect(dcMotor.inertia()).toBeCloseTo(0.0022)
+    expect(dcMotor.inertia()).toBeCloseTo(0.0022)
 })
 
 test.each([
-  [12, 0, 1.236],
-  [12, 340, 0],
-  [12, 250, 0.327],
-  [12, 150, 0.691],
-  [6, 0, 0.618],
-  [6, 340, 0],
-  [6, 200, 0.254]
+    [12, 0, 1.236],
+    [12, 340, 0],
+    [12, 250, 0.327],
+    [12, 150, 0.691],
+    [6, 0, 0.618],
+    [6, 340, 0],
+    [6, 200, 0.254]
 ])("Calculates torque at %i volts and %i rpm", (v, rpm, t) => {
     dcMotor.voltage = Voltage.v(v);
     expect(dcMotor.torque(RotationalVelocity.rpm(rpm)).value).toBeCloseTo(t)

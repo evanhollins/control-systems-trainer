@@ -12,46 +12,46 @@ import Button from 'react-bootstrap/Button';
 import './Editor.css'
 
 class Editor extends React.Component {
-  constructor(props) {
-    super(props)
+    constructor(props) {
+        super(props)
 
-    this.editor = null;
-  }
+        this.editor = null;
+    }
 
-  setup(editor) {
-    this.editor = editor;
-    this.reset();
-  }
+    setup(editor) {
+        this.editor = editor;
+        this.reset();
+    }
 
-  reset() {
-    this.editor.setValue(this.props.initialValue)
-  }
+    reset() {
+        this.editor.setValue(this.props.initialValue)
+    }
 
-  render() {
-    return (
-      <Container className="editorContainer">
-        <Row className="justify-content-between">
-          <Col xs="auto">
-            <Button variant="primary" onClick={this.reset.bind(this)}>Reset</Button>
-          </Col>
-          <Col xs="auto">
-              <Button variant="success" onClick={() => this.props.onRun(this.editor.getValue())}>Run</Button>
-          </Col>
-        </Row>
-        <Row className="editorRow">
-          <AceEditor
-            mode='javascript'
-            theme='github'
-            name='editor'
-            editorProps={{ $blockScrolling: true }}
-            height="100%"
-            width="100%"
-            onLoad={this.setup.bind(this)}
-          />
-        </Row>
-      </Container>
-    )
-  }
+    render() {
+        return (
+            <Container className="editorContainer">
+                <Row className="justify-content-between">
+                    <Col xs="auto">
+                        <Button variant="primary" onClick={this.reset.bind(this)}>Reset</Button>
+                    </Col>
+                    <Col xs="auto">
+                        <Button variant="success" onClick={() => this.props.onRun(this.editor.getValue())}>Run</Button>
+                    </Col>
+                </Row>
+                <Row className="editorRow">
+                    <AceEditor
+                        mode='javascript'
+                        theme='github'
+                        name='editor'
+                        editorProps={{ $blockScrolling: true }}
+                        height="100%"
+                        width="100%"
+                        onLoad={this.setup.bind(this)}
+                    />
+                </Row>
+            </Container>
+        )
+    }
 }
 
 export default Editor

@@ -8,14 +8,14 @@ import Length from './Length';
  * @param {Mass} Mass
  */
 class Wheel {
-  constructor(radius, mass) {
-    this.radius = radius;
-    this.mass = mass;
-  }
+    constructor(radius, mass) {
+        this.radius = radius;
+        this.mass = mass;
+    }
 
-  inertia() {
-    return 0.5 * this.mass.value * Math.pow(this.radius.value, 2);
-  }
+    inertia() {
+        return 0.5 * this.mass.value * Math.pow(this.radius.value, 2);
+    }
 }
 
 export default Wheel;
