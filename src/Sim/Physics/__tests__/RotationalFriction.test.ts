@@ -1,4 +1,5 @@
 import RotationalFriction from "../RotationalFriction";
+import { RotationalState } from "../RotationalJoint";
 import RotationalVelocity from "../Units/RotationalVelocity";
 import Torque from "../Units/Torque";
 
@@ -12,23 +13,23 @@ it('constructs correctly', () => {
 
 it('calculates correctly when not spinning and applying less than static torque', () => {
     expect(
-        rf.get(rps, Torque.nm(0.75))
+        rf.torque(new RotationalState(0, rps, 0, 0.75))
             .equals(Torque.nm(-0.75))
     ).toBe(true);
     expect(
-        rf.get(rps, Torque.nm(-0.75))
+        rf.torque(new RotationalState(0, rps, 0, -0.75))
             .equals(Torque.nm(0.75))
     ).toBe(true);
 })
 
 it('calculates correctly when not spinning and applied torque is greater than static', () => {
     expect(
-        rf.get(rps, Torque.nm(1.5))
+        rf.torque(new RotationalState(0, rps, 0, 1.5))
             .equals(Torque.nm(-0.5))
     ).toBe(true);
 
     expect(
-        rf.get(rps, Torque.nm(-1.5))
+        rf.torque(new RotationalState(0, rps, 0, -1.5))
             .equals(Torque.nm(0.5))
     ).toBe(true);
 })
@@ -37,12 +38,12 @@ it('calculates correctly when spinning', () => {
     rps = RotationalVelocity.rps(10);
 
     expect(
-        rf.get(rps, Torque.nm(1.5))
+        rf.torque(new RotationalState(0, rps, 0, 1.5))
             .equals(Torque.nm(-0.5))
     ).toBe(true);
 
     expect(
-        rf.get(rps, Torque.nm(-1.5))
+        rf.torque(new RotationalState(0, rps, 0, -1.5))
             .equals(Torque.nm(0.5))
     ).toBe(true);
 })

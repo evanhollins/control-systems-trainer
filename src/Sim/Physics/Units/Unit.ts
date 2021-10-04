@@ -18,8 +18,8 @@ class Unit {
         return !this.isPositive();
     }
 
-    negate(): Unit {
-        let toReturn: Unit = Object.create(this);
+    negate<UnitType extends Unit>(): UnitType {
+        let toReturn = Object.create(this);
         toReturn.value = -this.value;
         return toReturn;
     }

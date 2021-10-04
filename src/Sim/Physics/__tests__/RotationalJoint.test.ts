@@ -44,14 +44,14 @@ it('basic rotational joint calculates state correctly', () => {
     }
 
     const expected = [
-        [0, 0, 0],
-        [1, 1, 1],
-        [3, 2, 1],
-        [6, 3, 1],
-        [10, 4, 1],
-        [15, 5, 1]
+        [0, 0, 0, 0],
+        [1, 1, 1, 10],
+        [3, 2, 1, 10],
+        [6, 3, 1, 10],
+        [10, 4, 1, 10],
+        [15, 5, 1, 10]
     ].map(x => {
-        return new RotationalState(x[0], x[1], x[2]);
+        return new RotationalState(x[0], x[1], x[2], x[3]);
     });
 
     expect(joint.data).toMatchObject(expected);

@@ -1,5 +1,5 @@
 import Torque from './Units/Torque';
-import RotationalVelocity from './Units/RotationalVelocity';
+import { RotationalState } from './RotationalJoint';
 
 class RotationalFriction {
     staticFriction: Torque;
@@ -14,11 +14,11 @@ class RotationalFriction {
      * Get reaction torque at an rpm. Includes torque
      * applied to correctly handle static torque.
      */
-    get(rps: RotationalVelocity, torqueApplied: Torque): Torque {
-        if (rps.value === 0 && Math.abs(torqueApplied.value) <= this.staticFriction.value) {
-            return torqueApplied.negate();
+    torque(state: RotationalState): Torque {
+        if (state.velocity.radS() === 0 && Math.abs(state.torque.nm()) <= this.staticFriction.nm()) {
+            return state.torque.negate();
         } else {
-            return torqueApplied.isPositive() ? this.dynamicFriction.negate() : this.dynamicFriction;
+            return state.torque.isPositive() ? this.dynamicFriction.negate() : this.dynamicFriction;
         }
     }
 }

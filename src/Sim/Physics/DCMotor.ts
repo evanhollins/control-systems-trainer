@@ -7,17 +7,17 @@ import Mass from './Units/Mass';
 import { RotationalState } from './RotationalJoint';
 
 class DCMotor {
-    operatingVoltage: Voltage;
-    stallTorque: Torque;
-    stallCurrent: Current;
-    breakawayTorque: Torque;
-    noLoadSpeed: RotationalVelocity;
-    noLoadCurrent: Current;
-    rotorRadius: Length;
-    rotorMass: Mass;
-    gearRatio: number;
-    torqueConstant: number;
-    suppliedVoltage: Voltage;
+    private operatingVoltage: Voltage;
+    private stallTorque: Torque;
+    private stallCurrent: Current;
+    private breakawayTorque: Torque;
+    private noLoadSpeed: RotationalVelocity;
+    private noLoadCurrent: Current;
+    private rotorRadius: Length;
+    private rotorMass: Mass;
+    private gearRatio: number;
+    private torqueConstant: number;
+    private suppliedVoltage: Voltage;
 
     /**
      * @param {Voltage} operatingVoltage Rated operating voltage
@@ -54,6 +54,10 @@ class DCMotor {
         this.torqueConstant = this.stallTorque.nm() / this.noLoadSpeed.rps();
 
         this.suppliedVoltage = Voltage.v(0);
+    }
+
+    setPower(power: number) {
+        this.suppliedVoltage = Voltage.v(this.operatingVoltage.v() * power);
     }
 
     inertia(): number {

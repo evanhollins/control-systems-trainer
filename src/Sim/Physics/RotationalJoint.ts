@@ -8,16 +8,24 @@ export class RotationalState {
     position: RotationalPosition;
     velocity: RotationalVelocity;
     acceleration: RotationalAcceleration;
+    torque: Torque;
 
     /**
      * @param p position in radians
      * @param v velocity in radians per second
      * @param a acceleration in radians per second squared
+     * @param t torque in newton meters
      */
-    constructor(p: number | RotationalPosition, v: number | RotationalVelocity, a: number | RotationalAcceleration) {
+    constructor(
+        p: number | RotationalPosition, 
+        v: number | RotationalVelocity, 
+        a: number | RotationalAcceleration,
+        t: number | Torque
+    ) {
         this.position = (p instanceof RotationalPosition) ? p : RotationalPosition.rad(p);
         this.velocity = (v instanceof RotationalVelocity) ? v : RotationalVelocity.radS(v);
         this.acceleration = (a instanceof RotationalAcceleration) ? a : RotationalAcceleration.radS2(a);
+        this.torque = (t instanceof Torque) ? t : Torque.nm(t);
     }
 };
 
@@ -30,12 +38,17 @@ export class RotationalJoint {
     torques: Array<torqueFunction>;
     inertias: Array<inertiaFunction>;
 
-    constructor() {
-        this.data = [{
-            position: RotationalPosition.rad(0),
-            velocity: RotationalVelocity.radS(0),
-            acceleration: RotationalAcceleration.radS2(0)
-        }];
+    constructor(initialState?: RotationalState) {
+        if (initialState) {
+            this.data = [initialState];
+        } else {
+            this.data = [{
+                position: RotationalPosition.rad(0),
+                velocity: RotationalVelocity.radS(0),
+                acceleration: RotationalAcceleration.radS2(0),
+                torque: Torque.nm(0)
+            }];
+        }
         
         this.torques = [];
         this.inertias = [];
@@ -75,7 +88,8 @@ export class RotationalJoint {
         this.data.push({
             position,
             velocity,
-            acceleration
+            acceleration,
+            torque: Torque.nm(torqueTotal)
         });
     }
 }
