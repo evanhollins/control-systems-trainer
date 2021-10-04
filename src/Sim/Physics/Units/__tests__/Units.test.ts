@@ -53,11 +53,17 @@ describe('Mass', () => {
         let m = Mass.kg(10);
         expect(m.kg()).toBe(10);
         expect(m.g()).toBe(10000);
+        expect(m.lbs()).toBeCloseTo(22.046);
     })
 
     it('constructs with grams', () => {
         let m = Mass.g(12);
         expect(m.kg()).toBe(0.012);
+    })
+
+    it('constructs with pounds', () => {
+        let m = Mass.lbs(5);
+        expect(m.kg()).toBeCloseTo(2.2680);
     })
 })
 
