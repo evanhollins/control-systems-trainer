@@ -7,6 +7,7 @@ import Current from '../Current';
 import RotationalVelocity from '../RotationalVelocity';
 import RotationalPosition from '../RotationalPosition';
 import RotationalAcceleration from '../RotationalAcceleration';
+import Time from '../Time';
 
 describe('Unit', () => {
     let u1 = new Unit(1);
@@ -134,5 +135,18 @@ describe('Rotational acceleration', () => {
     it('constructs with radians per second squared', () => {
         let ra = RotationalAcceleration.radS2(10);
         expect(ra.radS2()).toBe(10);
+    })
+})
+
+describe('Time', () => {
+    it('constructs with seconds', () => {
+        let t = Time.s(0.5)
+        expect(t.s()).toBe(0.5);
+        expect(t.ms()).toBe(500);
+    })
+
+    it('constructs with milliseconds', () => {
+        let t = Time.ms(250);
+        expect(t.s()).toBeCloseTo(0.25);
     })
 })
