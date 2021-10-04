@@ -1,6 +1,6 @@
 import Wheel from "../Wheel";
-import Length from "../Length";
-import Mass from "../Mass";
+import Length from "../Units/Length";
+import Mass from "../Units/Mass";
 
 it('calculates moment of inertia', () => {
     let w = new Wheel(Length.mm(50), Mass.kg(1));

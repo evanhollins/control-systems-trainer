@@ -1,9 +1,9 @@
-import RotationalVelocity from './RotationalVelocity';
-import Torque from './Torque';
-import Voltage from './Voltage';
-import Current from './Current';
-import Length from './Length';
-import Mass from './Mass';
+import RotationalVelocity from './Units/RotationalVelocity';
+import Torque from './Units/Torque';
+import Voltage from './Units/Voltage';
+import Current from './Units/Current';
+import Length from './Units/Length';
+import Mass from './Units/Mass';
 
 class DCMotor {
     operatingVoltage: Voltage;

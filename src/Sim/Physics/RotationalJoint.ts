@@ -1,5 +1,5 @@
-import Torque from './Torque';
-import RotationalVelocity from './RotationalVelocity';
+import Torque from './Units/Torque';
+import RotationalVelocity from './Units/RotationalVelocity';
 
 class RotationalJoint {
     position: Array<number>;

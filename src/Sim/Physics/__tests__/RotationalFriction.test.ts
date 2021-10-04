@@ -1,6 +1,6 @@
-import RotationalFriction from "../RotationalFriction";
-import RotationalVelocity from "../RotationalVelocity";
-import Torque from "../Torque";
+import RotationalFriction from "../Units/RotationalFriction";
+import RotationalVelocity from "../Units/RotationalVelocity";
+import Torque from "../Units/Torque";
 
 let rf = new RotationalFriction(Torque.nm(1), Torque.nm(0.5));
 let rps = RotationalVelocity.rps(0);
