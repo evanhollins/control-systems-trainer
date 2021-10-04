@@ -6,6 +6,7 @@ import Voltage from "../Voltage";
 import Current from '../Current';
 import RotationalVelocity from '../RotationalVelocity';
 import RotationalPosition from '../RotationalPosition';
+import RotationalAcceleration from '../RotationalAcceleration';
 
 describe('Unit', () => {
     let u1 = new Unit(1);
@@ -111,14 +112,27 @@ describe('Rotational Position', () => {
 })
 
 describe('Rotational Velocity', () => {
-    it('constructs with rps', () => {
-        let r = RotationalVelocity.rps(10);
-        expect(r.rps()).toBe(10);
+    it('constructs with radS', () => {
+        let r = RotationalVelocity.radS(Math.PI * 20);
+        expect(r.radS()).toBeCloseTo(Math.PI * 20);
+        expect(r.rps()).toBeCloseTo(10);
         expect(r.rpm()).toBeCloseTo(600);
+    })
+
+    it('constructs with rps', () => {
+        let r = RotationalVelocity.rps(1);
+        expect(r.radS()).toBeCloseTo(Math.PI * 2);
     })
 
     it('constructs with rpm', () => {
         let r = RotationalVelocity.rpm(60);
-        expect(r.rps()).toBe(1);
+        expect(r.radS()).toBeCloseTo(Math.PI * 2);
+    })
+})
+
+describe('Rotational acceleration', () => {
+    it('constructs with radians per second squared', () => {
+        let ra = RotationalAcceleration.radS2(10);
+        expect(ra.radS2()).toBe(10);
     })
 })
