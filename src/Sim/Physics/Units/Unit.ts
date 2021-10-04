@@ -1,8 +1,6 @@
 
-type UnitConstructor = { new (): Unit };
-
 class Unit {
-    value: number;
+    protected value: number;
 
     constructor(value: number) {
         this.value = value;

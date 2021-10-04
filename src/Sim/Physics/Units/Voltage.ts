@@ -1,7 +1,7 @@
 import Unit from "./Unit";
 
 class Voltage extends Unit {
-    constructor(volts: number) {
+    protected constructor(volts: number) {
         super(volts)
     }
 
@@ -11,6 +11,13 @@ class Voltage extends Unit {
      */
     static v(v: number): Voltage {
         return new Voltage(v);
+    }
+
+    /**
+     * @returns volts
+     */
+    v(): number {
+        return this.value;
     }
 }
 

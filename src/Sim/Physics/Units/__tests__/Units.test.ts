@@ -5,6 +5,7 @@ import Torque from "../Torque";
 import Voltage from "../Voltage";
 import Current from '../Current';
 import RotationalVelocity from '../RotationalVelocity';
+import RotationalPosition from '../RotationalPosition';
 
 describe('Unit', () => {
     let u1 = new Unit(1);
@@ -35,66 +36,89 @@ describe('Unit', () => {
 describe('Length', () => {
     it('constructs with meters', () => {
         let l = Length.m(10);
-        expect(l.value).toBe(10);
+        expect(l.m()).toBe(10);
+        expect(l.mm()).toBe(10000);
     })
 
     it('constructs with millimetres', () => {
-        let l = Length.mm(1000);
-        expect(l.value).toBe(1);
+        let l = Length.mm(1024);
+        expect(l.m()).toBe(1.024);
     })
 })
 
 describe('Mass', () => {
     it('constructs with kilograms', () => {
         let m = Mass.kg(10);
-        expect(m.value).toBe(10);
+        expect(m.kg()).toBe(10);
+        expect(m.g()).toBe(10000);
     })
 
     it('constructs with grams', () => {
         let m = Mass.g(12);
-        expect(m.value).toBe(0.012);
+        expect(m.kg()).toBe(0.012);
     })
 })
 
 describe('Torque', () => {
     it('constructs with newton meters', () => {
         let t = Torque.nm(10);
-        expect(t.value).toBe(10);
+        expect(t.nm()).toBe(10);
     })
 
     it('constructs with ounce inches', () => {
         let t = Torque.oz_in(175);
-        expect(t.value).toBeCloseTo(1.2358);
+        expect(t.nm()).toBeCloseTo(1.2358);
     })
 
     it('constructs with pound feet', () => {
         let t = Torque.lb_ft(15);
-        expect(t.value).toBeCloseTo(20.3373);
+        expect(t.nm()).toBeCloseTo(20.3373);
+    })
+
+    it('converts between units correctly', () => {
+        let t = Torque.nm(10);
+        expect(t.oz_in()).toBeCloseTo(1416.03);
+        expect(t.lb_ft()).toBeCloseTo(7.3756);
     })
 })
 
 describe('Voltage', () => {
     it('constructs with volts', () => {
         let v = Voltage.v(12);
-        expect(v.value).toBe(12);
+        expect(v.v()).toBe(12);
     })
 })
 
 describe('Current', () => {
     it('constructs with amps', () => {
         let a = Current.a(3);
-        expect(a.value).toBe(3);
+        expect(a.a()).toBe(3);
+    })
+})
+
+describe('Rotational Position', () => {
+    it('constructs with rad', () => {
+        let p = RotationalPosition.rad(Math.PI);
+        expect(p.rad()).toBe(Math.PI);
+        expect(p.deg()).toBeCloseTo(180);
+    })
+
+    it('constructs with deg', () => {
+        let p = RotationalPosition.deg(180);
+        expect(p.deg()).toBeCloseTo(180);
+        expect(p.rad()).toBeCloseTo(Math.PI);
     })
 })
 
 describe('Rotational Velocity', () => {
     it('constructs with rps', () => {
         let r = RotationalVelocity.rps(10);
-        expect(r.value).toBe(10);
+        expect(r.rps()).toBe(10);
+        expect(r.rpm()).toBeCloseTo(600);
     })
 
     it('constructs with rpm', () => {
         let r = RotationalVelocity.rpm(60);
-        expect(r.value).toBe(1);
+        expect(r.rps()).toBe(1);
     })
 })

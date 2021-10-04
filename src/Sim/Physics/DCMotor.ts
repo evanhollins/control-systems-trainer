@@ -50,14 +50,14 @@ class DCMotor {
         this.rotorMass = rotorMass;
         this.gearRatio = gearRatio;
 
-        this.torqueConstant = this.stallTorque.value / this.noLoadSpeed.value;
+        this.torqueConstant = this.stallTorque.nm() / this.noLoadSpeed.rps();
 
         this.suppliedVoltage = Voltage.v(0);
     }
 
     inertia(): number {
         // Assume rotor is a solid cylinder
-        let rotorInertia = 0.5 * this.rotorMass.value * Math.pow(this.rotorRadius.value, 2);
+        let rotorInertia = 0.5 * this.rotorMass.kg() * Math.pow(this.rotorRadius.m(), 2);
 
         // Translate inertia through gearbox
         let motorInertia = rotorInertia * Math.pow(this.gearRatio, 2)
@@ -71,8 +71,8 @@ class DCMotor {
      * inductance.
      */
     torque(rotationalVelocity: RotationalVelocity): Torque {
-        let percentVoltage = this.suppliedVoltage.value / this.operatingVoltage.value;
-        let fullVoltageTorque = this.stallTorque.value - (rotationalVelocity.value * this.torqueConstant);
+        let percentVoltage = this.suppliedVoltage.v() / this.operatingVoltage.v();
+        let fullVoltageTorque = this.stallTorque.nm() - (rotationalVelocity.rps() * this.torqueConstant);
 
         return Torque.nm(fullVoltageTorque * percentVoltage);
     }

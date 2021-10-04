@@ -14,7 +14,7 @@ class Wheel {
     }
 
     inertia(): number {
-        return 0.5 * this.mass.value * Math.pow(this.radius.value, 2);
+        return 0.5 * this.mass.kg() * Math.pow(this.radius.m(), 2);
     }
 }
 

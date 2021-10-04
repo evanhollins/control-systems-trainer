@@ -1,4 +1,4 @@
-import RotationalFriction from "../Units/RotationalFriction";
+import RotationalFriction from "../RotationalFriction";
 import RotationalVelocity from "../Units/RotationalVelocity";
 import Torque from "../Units/Torque";
 
