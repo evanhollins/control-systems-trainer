@@ -4,6 +4,7 @@ import Voltage from './Units/Voltage';
 import Current from './Units/Current';
 import Length from './Units/Length';
 import Mass from './Units/Mass';
+import { RotationalState } from './RotationalJoint';
 
 class DCMotor {
     operatingVoltage: Voltage;
@@ -70,9 +71,9 @@ class DCMotor {
      * rotational velocity and input voltage. Currently ignores motor
      * inductance.
      */
-    torque(rotationalVelocity: RotationalVelocity): Torque {
+    torque(state: RotationalState): Torque {
         let percentVoltage = this.suppliedVoltage.v() / this.operatingVoltage.v();
-        let fullVoltageTorque = this.stallTorque.nm() - (rotationalVelocity.rps() * this.torqueConstant);
+        let fullVoltageTorque = this.stallTorque.nm() - (state.velocity.rps() * this.torqueConstant);
 
         return Torque.nm(fullVoltageTorque * percentVoltage);
     }

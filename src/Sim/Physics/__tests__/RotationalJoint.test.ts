@@ -51,11 +51,7 @@ it('basic rotational joint calculates state correctly', () => {
         [10, 4, 1],
         [15, 5, 1]
     ].map(x => {
-        return {
-            position: RotationalPosition.rad(x[0]), 
-            velocity: RotationalVelocity.radS(x[1]), 
-            acceleration: RotationalAcceleration.radS2(x[2])
-        }
+        return new RotationalState(x[0], x[1], x[2]);
     });
 
     expect(joint.data).toMatchObject(expected);

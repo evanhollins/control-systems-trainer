@@ -5,6 +5,7 @@ import Voltage from '../Units/Voltage';
 import Current from '../Units/Current';
 import Length from '../Units/Length';
 import Mass from '../Units/Mass';
+import { RotationalState } from "../RotationalJoint";
 
 // Parameters for Andymark Neverest orbital 20
 let operatingVoltage = Voltage.v(12);
@@ -43,5 +44,6 @@ test.each([
     [6, 200, 0.254]
 ])("Calculates torque at %i volts and %i rpm", (v, rpm, t) => {
     dcMotor.suppliedVoltage = Voltage.v(v);
-    expect(dcMotor.torque(RotationalVelocity.rpm(rpm)).nm()).toBeCloseTo(t)
+    let state = new RotationalState(1, RotationalVelocity.rpm(rpm), 0);
+    expect(dcMotor.torque(state).nm()).toBeCloseTo(t)
 })

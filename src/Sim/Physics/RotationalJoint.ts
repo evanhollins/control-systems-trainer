@@ -4,10 +4,21 @@ import RotationalVelocity from './Units/RotationalVelocity';
 import RotationalAcceleration from './Units/RotationalAcceleration';
 import Time from './Units/Time';
 
-export type RotationalState = {
+export class RotationalState {
     position: RotationalPosition;
     velocity: RotationalVelocity;
     acceleration: RotationalAcceleration;
+
+    /**
+     * @param p position in radians
+     * @param v velocity in radians per second
+     * @param a acceleration in radians per second squared
+     */
+    constructor(p: number | RotationalPosition, v: number | RotationalVelocity, a: number | RotationalAcceleration) {
+        this.position = (p instanceof RotationalPosition) ? p : RotationalPosition.rad(p);
+        this.velocity = (v instanceof RotationalVelocity) ? v : RotationalVelocity.radS(v);
+        this.acceleration = (a instanceof RotationalAcceleration) ? a : RotationalAcceleration.radS2(a);
+    }
 };
 
 type torqueFunction = (state: RotationalState) => Torque;
