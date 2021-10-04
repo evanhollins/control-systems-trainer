@@ -1,7 +1,7 @@
 import Unit from "./Unit";
 
 class Length extends Unit {
-    constructor(meters) {
+    constructor(meters: number) {
         super(meters)
     }
 
@@ -9,7 +9,7 @@ class Length extends Unit {
      * @param {Number} m Meters
      * @returns Length
      */
-    static m(m) {
+    static m(m: number): Length {
         return new Length(m);
     }
 
@@ -17,7 +17,7 @@ class Length extends Unit {
      * @param {Number} mm Millimetres
      * @returns Length
      */
-    static mm(mm) {
+    static mm(mm: number): Length {
         return new Length(mm / 1000);
     }
 }

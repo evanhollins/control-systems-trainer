@@ -6,6 +6,18 @@ import Length from './Length';
 import Mass from './Mass';
 
 class DCMotor {
+    operatingVoltage: Voltage;
+    stallTorque: Torque;
+    stallCurrent: Current;
+    breakawayTorque: Torque;
+    noLoadSpeed: RotationalVelocity;
+    noLoadCurrent: Current;
+    rotorRadius: Length;
+    rotorMass: Mass;
+    gearRatio: number;
+    torqueConstant: number;
+    suppliedVoltage: Voltage;
+
     /**
      * @param {Voltage} operatingVoltage Rated operating voltage
      * @param {Torque} stallTorque Torque when motor is stalled at operating voltage
@@ -18,15 +30,15 @@ class DCMotor {
      * @param {Number} gearRatio Ratio of built in gearbox (motor revs/output revs)
      */
     constructor(
-        operatingVoltage,
-        stallTorque,
-        stallCurrent,
-        breakawayTorque,
-        noLoadSpeed,
-        noLoadCurrent,
-        rotorRadius,
-        rotorMass,
-        gearRatio
+        operatingVoltage: Voltage,
+        stallTorque: Torque,
+        stallCurrent: Current,
+        breakawayTorque: Torque,
+        noLoadSpeed: RotationalVelocity,
+        noLoadCurrent: Current,
+        rotorRadius: Length,
+        rotorMass: Mass,
+        gearRatio: number
     ) {
         this.operatingVoltage = operatingVoltage;
         this.stallTorque = stallTorque;
@@ -40,10 +52,10 @@ class DCMotor {
 
         this.torqueConstant = this.stallTorque.value / this.noLoadSpeed.value;
 
-        this.voltage = 0;
+        this.suppliedVoltage = Voltage.v(0);
     }
 
-    inertia() {
+    inertia(): number {
         // Assume rotor is a solid cylinder
         let rotorInertia = 0.5 * this.rotorMass.value * Math.pow(this.rotorRadius.value, 2);
 
@@ -57,11 +69,9 @@ class DCMotor {
      * Calculate the output torque of the motor given current
      * rotational velocity and input voltage. Currently ignores motor
      * inductance.
-     * @param {RotationalVelocity} rotationalVelocity 
-     * @returns {Torque}
      */
-    torque(rotationalVelocity) {
-        let percentVoltage = this.voltage.value / this.operatingVoltage.value;
+    torque(rotationalVelocity: RotationalVelocity): Torque {
+        let percentVoltage = this.suppliedVoltage.value / this.operatingVoltage.value;
         let fullVoltageTorque = this.stallTorque.value - (rotationalVelocity.value * this.torqueConstant);
 
         return Torque.nm(fullVoltageTorque * percentVoltage);

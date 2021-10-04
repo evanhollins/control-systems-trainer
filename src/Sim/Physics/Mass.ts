@@ -1,7 +1,7 @@
 import Unit from "./Unit";
 
 class Mass extends Unit {
-    constructor(kg) {
+    constructor(kg: number) {
         super(kg);
     }
 
@@ -9,7 +9,7 @@ class Mass extends Unit {
      * @param {Number} kg kilograms
      * @returns {Mass}
      */
-    static kg(kg) {
+    static kg(kg: number): Mass {
         return new Mass(kg);
     }
 
@@ -17,7 +17,7 @@ class Mass extends Unit {
      * @param {Number} g grams
      * @returns {Mass}
      */
-    static g(g) {
+    static g(g: number): Mass {
         return new Mass(g / 1000);
     }
 }

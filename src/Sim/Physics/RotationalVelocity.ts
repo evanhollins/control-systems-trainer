@@ -1,7 +1,7 @@
 import Unit from "./Unit";
 
 class RotationalVelocity extends Unit {
-    constructor(rps) {
+    constructor(rps: number) {
         super(rps);
     }
 
@@ -10,7 +10,7 @@ class RotationalVelocity extends Unit {
      * @param {Number} rps revolutions per second
      * @returns {RotationalVelocity}
      */
-    static rps(rps) {
+    static rps(rps: number): RotationalVelocity {
         return new RotationalVelocity(rps);
     }
 
@@ -19,7 +19,7 @@ class RotationalVelocity extends Unit {
      * @param {Number} rpm revolutions per minute
      * @returns {RotationalVelocity}
      */
-    static rpm(rpm) {
+    static rpm(rpm: number): RotationalVelocity {
         return new RotationalVelocity(rpm / 60);
     }
 }

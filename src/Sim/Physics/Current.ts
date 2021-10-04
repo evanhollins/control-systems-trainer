@@ -1,15 +1,11 @@
 import Unit from "./Unit";
 
 class Current extends Unit {
-    constructor(amps) {
+    constructor(amps: number) {
         super(amps);
     }
 
-    /**
-     * @param {Number} a amps
-     * @returns {Current}
-     */
-    static a(a) {
+    static a(a: number) : Current {
         return new Current(a);
     }
 }

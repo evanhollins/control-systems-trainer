@@ -42,6 +42,6 @@ test.each([
     [6, 340, 0],
     [6, 200, 0.254]
 ])("Calculates torque at %i volts and %i rpm", (v, rpm, t) => {
-    dcMotor.voltage = Voltage.v(v);
+    dcMotor.suppliedVoltage = Voltage.v(v);
     expect(dcMotor.torque(RotationalVelocity.rpm(rpm)).value).toBeCloseTo(t)
 })
