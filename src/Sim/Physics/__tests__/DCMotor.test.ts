@@ -35,15 +35,15 @@ it('calculates inertia correctly', () => {
 })
 
 test.each([
-    [12, 0, 1.236],
-    [12, 340, 0],
-    [12, 250, 0.327],
-    [12, 150, 0.691],
-    [6, 0, 0.618],
-    [6, 340, 0],
-    [6, 200, 0.254]
+    [1, 0, 1.236],
+    [1, 340, 0],
+    [1, 250, 0.327],
+    [1, 150, 0.691],
+    [0.5, 0, 0.618],
+    [0.5, 340, 0],
+    [0.5, 200, 0.254]
 ])("Calculates torque at %i volts and %i rpm", (v, rpm, t) => {
-    dcMotor.suppliedVoltage = Voltage.v(v);
-    let state = new RotationalState(1, RotationalVelocity.rpm(rpm), 0);
+    dcMotor.setPower(v);
+    let state = new RotationalState(1, RotationalVelocity.rpm(rpm), 0, 0);
     expect(dcMotor.torque(state).nm()).toBeCloseTo(t)
 })
