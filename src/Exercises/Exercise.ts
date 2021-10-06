@@ -7,6 +7,16 @@ export type ExerciseData = {
     setPoint: number;
 }
 
+export type GraphConfig = {
+    yLabel?: string,
+    xLabel?: string,
+    tickFormater?(value: any, index: number): string,
+    riseTimeValue?: number;
+    overshootValue?: number;
+    steadyStateError?: number;
+    graphKeys?: Array<string>;
+}
+
 export type ControlSystem = (target: number, current: number) => number;
 
 export interface Resetable {
@@ -19,6 +29,7 @@ export abstract class Exercise implements Resetable {
     timeStep: Time;
     starterCode: string;
     controlSystem: ControlSystem;
+    abstract graphConfig: GraphConfig;
 
     protected abstract runStep(currentTime: Time): void;
 

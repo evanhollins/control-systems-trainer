@@ -29,6 +29,16 @@ class Exercise1 extends Exercise {
 
     private target: RotationalVelocity;
 
+    graphConfig = {
+        yLabel: "rps",
+        xLabel: "Time (s)",
+        tickFormater: (value: any, index: number) => 
+            isNaN(value) ? value : (value / 1000).toFixed(1).toString(),
+        // riseTimeValue?: number;
+        // overshootValue?: number;
+        // steadyStateError?: number;
+        graphKeys: ["current", "target"]
+    };
 
     constructor() {
         super(Exercise1.totalTime, Exercise1.timeStep, starterCode)

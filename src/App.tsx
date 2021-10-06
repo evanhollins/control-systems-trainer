@@ -31,6 +31,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
         // eslint-disable-next-line
         eval(code);
 
+        // @ts-ignore
         this.exercise.controlSystem = window.runControlSystem;
         this.exercise.reset();
         this.sim.setup(this.exercise);
@@ -49,7 +50,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
 
                         </Row>
                         <Row className="graph">
-                            <Graph data={this.state.graphData} />
+                            <Graph data={this.state.graphData} config={this.exercise.graphConfig} />
                         </Row>
                     </Col>
                 </Row>
