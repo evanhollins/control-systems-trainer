@@ -1,6 +1,8 @@
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
+import { ExerciseData } from '../Exercises/Exercise'
 
-function Graph(props) {
+
+function Graph(props: {data: Array<ExerciseData>}) {
     return (
         <div>
             <ResponsiveContainer width="100%" height="100%">

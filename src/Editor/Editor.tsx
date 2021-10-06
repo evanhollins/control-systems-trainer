@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AceEditor from 'react-ace';
+import { Ace } from 'ace-builds';
 import 'ace-builds/src-min-noconflict/mode-javascript';
 import 'ace-builds/src-min-noconflict/theme-github';
 
@@ -11,20 +12,33 @@ import Button from 'react-bootstrap/Button';
 
 import './Editor.css'
 
-class Editor extends React.Component {
-    constructor(props) {
+type EditorProps = {
+    initialValue: string;
+    onRun(code: string):  void;
+};
+
+class Editor extends React.Component<EditorProps, {}> {
+    editor: Ace.Editor | null;
+
+    constructor(props: EditorProps) {
         super(props)
 
         this.editor = null;
     }
 
-    setup(editor) {
+    setup(editor: Ace.Editor) {
         this.editor = editor;
         this.reset();
     }
 
     reset() {
-        this.editor.setValue(this.props.initialValue)
+        if (this.editor) {
+            this.editor.setValue(this.props.initialValue)
+        }
+    }
+
+    private run() {
+        this.props.onRun(this.editor ? this.editor.getValue() : "");
     }
 
     render() {
@@ -35,7 +49,7 @@ class Editor extends React.Component {
                         <Button variant="primary" onClick={this.reset.bind(this)}>Reset</Button>
                     </Col>
                     <Col xs="auto">
-                        <Button variant="success" onClick={() => this.props.onRun(this.editor.getValue())}>Run</Button>
+                        <Button variant="success" onClick={this.run.bind(this)}>Run</Button>
                     </Col>
                 </Row>
                 <Row className="editorRow">

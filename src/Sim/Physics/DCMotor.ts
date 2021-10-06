@@ -5,8 +5,9 @@ import Current from './Units/Current';
 import Length from './Units/Length';
 import Mass from './Units/Mass';
 import { RotationalState } from './RotationalJoint';
+import { Resetable } from '../../Exercises/Exercise';
 
-class DCMotor {
+class DCMotor implements Resetable {
     private operatingVoltage: Voltage;
     private stallTorque: Torque;
     private stallCurrent: Current;
@@ -53,6 +54,10 @@ class DCMotor {
 
         this.torqueConstant = this.stallTorque.nm() / this.noLoadSpeed.rps();
 
+        this.suppliedVoltage = Voltage.v(0);
+    }
+
+    reset() {
         this.suppliedVoltage = Voltage.v(0);
     }
 
