@@ -4,6 +4,7 @@ import RotationalVelocity from './Units/RotationalVelocity';
 import RotationalAcceleration from './Units/RotationalAcceleration';
 import Time from './Units/Time';
 import { Resetable } from '../../Exercises/Exercise';
+import RotationalFriction from './RotationalFriction';
 
 export class RotationalState {
     position: RotationalPosition;
@@ -39,6 +40,7 @@ export class RotationalJoint implements Resetable {
 
     torques: Array<torqueFunction>;
     inertias: Array<inertiaFunction>;
+    friction?: RotationalFriction;
 
     constructor(initialState?: RotationalState) {
         if (initialState) {
@@ -98,6 +100,10 @@ export class RotationalJoint implements Resetable {
         let torqueTotal = this.torques.reduce((accumulator, t) => {
             return accumulator + t(this.current).nm();
         }, 0);
+
+        if (this.friction) {
+            torqueTotal += this.friction.torque(this.current.velocity, Torque.nm(torqueTotal)).nm();
+        }
 
         let acceleration = RotationalAcceleration.radS2(torqueTotal / jTotal);
         let velocity = RotationalVelocity.radS(this.current.velocity.radS() + (acceleration.radS2() * deltaTime.s()))

@@ -67,8 +67,8 @@ class Exercise1 extends Exercise {
         ]);
         this.joint.addTorque([
             this.motor.torque.bind(this.motor),
-            this.friction.torque.bind(this.friction)
         ])
+        this.joint.friction = this.friction;
 
         this.target = RotationalVelocity.rps(10);
     }

@@ -38,7 +38,7 @@ function Graph(props: {data: Array<ExerciseData>, config: GraphConfig}) {
                     {
                         props.config.graphKeys ?
                         props.config.graphKeys.map(((dataKey, i) => 
-                            <Line dataKey={dataKey} stroke={colors[i]} dot={false}/>
+                            <Line dataKey={dataKey} stroke={colors[i]} dot={false} key={i}/>
                         ))
                         : <div/>
                     }
