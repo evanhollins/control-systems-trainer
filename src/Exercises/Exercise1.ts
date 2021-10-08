@@ -8,6 +8,24 @@ import SteelFlywheel from "../Sim/Wheels/SteelFlywheel";
 import { Exercise, Resetable } from "./Exercise";
 
 const starterCode = `
+/*
+* Your control system!
+*
+* You are trying to control a 775 pro to spin a
+* steel flywheel at 10 revolutions per second (rps).
+* 
+* Your control system is handed two things, a target rps
+* and a current rps. Based on those, you must decide what
+* to set the motor to, which is any number between -1 and 1.
+* 
+* Some examples:
+*   Full power forwards: 1
+*   Full power backwards: -1
+*   Half power forwards: 0.5
+*   No power: 0
+*
+* Good luck!
+*/
 function runControlSystem(target, current) {
     return 0;
 }

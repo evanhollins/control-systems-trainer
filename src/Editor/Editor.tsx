@@ -33,7 +33,7 @@ class Editor extends React.Component<EditorProps, {}> {
 
     reset() {
         if (this.editor) {
-            this.editor.setValue(this.props.initialValue)
+            this.editor.setValue(this.props.initialValue, -1)
         }
     }
 
