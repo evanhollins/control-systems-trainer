@@ -70,7 +70,7 @@ class Exercise1 extends Exercise {
         ])
         this.joint.friction = this.friction;
 
-        this.target = RotationalVelocity.rps(10);
+        this.target = RotationalVelocity.rpm(10000);
     }
 
     reset() {

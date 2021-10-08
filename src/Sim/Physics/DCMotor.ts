@@ -62,6 +62,12 @@ class DCMotor implements Resetable {
     }
 
     setPower(power: number) {
+        if (power < -1) {
+            power = -1;
+        } else if (power > 1) {
+            power = 1;
+        }
+
         this.suppliedVoltage = Voltage.v(this.operatingVoltage.v() * power);
     }
 
