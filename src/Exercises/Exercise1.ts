@@ -36,6 +36,7 @@ window.runControlSystem = runControlSystem;
 class Exercise1 extends Exercise {
     private static totalTime = Time.s(10);
     private static timeStep = Time.ms(100);
+    private static initialTarget = RotationalVelocity.rps(10);
 
     private staticFriction = Torque.nm(0.2);
     private dynamicFriction = Torque.nm(0.1);
@@ -45,21 +46,20 @@ class Exercise1 extends Exercise {
     private wheel = new SteelFlywheel();
     private resetables: Array<Resetable> = [this.joint, this.motor];
 
-    private target: RotationalVelocity;
 
     graphConfig = {
         yLabel: "rps",
         xLabel: "Time (s)",
-        tickFormater: (value: any, index: number) => 
+        tickFormater: (value: any) => 
             isNaN(value) ? value : (value / 1000).toFixed(1).toString(),
-        // riseTimeValue?: number;
-        // overshootValue?: number;
-        // steadyStateError?: number;
+        // riseTimeValue?: number,
+        // overshootValue?: number,
+        // steadyStateError?: number,
         graphKeys: ["current", "target"]
     };
 
     constructor() {
-        super(Exercise1.totalTime, Exercise1.timeStep, starterCode)
+        super(Exercise1.totalTime, Exercise1.timeStep, starterCode, Exercise1.initialTarget.rps())
 
         this.joint.addInertia([
             this.wheel.inertia.bind(this.wheel),
@@ -69,8 +69,6 @@ class Exercise1 extends Exercise {
             this.motor.torque.bind(this.motor),
         ])
         this.joint.friction = this.friction;
-
-        this.target = RotationalVelocity.rpm(10000);
     }
 
     reset() {
@@ -82,13 +80,13 @@ class Exercise1 extends Exercise {
 
     runStep(currentTime: Time) {
         let current = this.joint.current.velocity.rps();
-        let setPoint = this.controlSystem(this.target.rps(), current);
+        let setPoint = this.controlSystem(this.target, current);
         this.motor.setPower(setPoint);
         this.joint.run(this.timeStep);
 
         this.data.push({
             time: currentTime.ms(),
-            target: this.target.rps(),
+            target: this.target,
             current,
             setPoint
         })

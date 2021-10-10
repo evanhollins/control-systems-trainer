@@ -28,17 +28,19 @@ export abstract class Exercise implements Resetable {
     totalTime: Time;
     timeStep: Time;
     starterCode: string;
+    target: number;
     controlSystem: ControlSystem;
     abstract graphConfig: GraphConfig;
 
     protected abstract runStep(currentTime: Time): void;
 
-    constructor(totalTime: Time, timeStep: Time, starterCode: string) {
+    constructor(totalTime: Time, timeStep: Time, starterCode: string, target: number) {
         this.data = [];
 
         this.totalTime = totalTime;
         this.timeStep = timeStep;
         this.starterCode = starterCode;
+        this.target = target;
         this.controlSystem = () => 0;
     }
 

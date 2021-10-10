@@ -11,19 +11,35 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 import './Editor.css'
+import { FormControl, InputGroup } from 'react-bootstrap';
 
 type EditorProps = {
     initialValue: string;
+    initialTime: number;
+    initialTarget: number;
     onRun(code: string):  void;
+    onTimeChange(time: number): void;
+    onTargetChange(target: number): void;
 };
 
 class Editor extends React.Component<EditorProps, {}> {
     editor: Ace.Editor | null;
+    state: {
+        timeValue: number,
+        targetValue: number
+    }
 
     constructor(props: EditorProps) {
         super(props)
 
+        this.state = {
+            timeValue: props.initialTime,
+            targetValue: props.initialTarget
+        };
+
         this.editor = null;
+        this.onTimeChange.bind(this);
+        this.onTargetChange.bind(this);
     }
 
     setup(editor: Ace.Editor) {
@@ -41,12 +57,42 @@ class Editor extends React.Component<EditorProps, {}> {
         this.props.onRun(this.editor ? this.editor.getValue() : "");
     }
 
+    onTimeChange(t: number) {
+        this.setState({timeValue: t});
+        this.props.onTimeChange(t);
+    }
+
+    onTargetChange(t: number) {
+        this.setState({targetValue: t});
+        this.props.onTargetChange(t);
+    }
+
     render() {
         return (
             <Container className="editorContainer">
                 <Row className="justify-content-between">
                     <Col xs="auto">
                         <Button variant="primary" onClick={this.reset.bind(this)}>Reset</Button>
+                    </Col>
+                    <Col>
+                        <InputGroup>
+                            <InputGroup.Text>Time (s)</InputGroup.Text>
+                            <FormControl 
+                                onChange={(e) => this.onTimeChange(parseInt(e.target.value))}
+                                value={this.state.timeValue}
+                                type="number"
+                            />
+                        </InputGroup>
+                    </Col>
+                    <Col>
+                        <InputGroup>
+                            <InputGroup.Text>Target</InputGroup.Text>
+                            <FormControl 
+                                onChange={(e) => this.onTargetChange(parseInt(e.target.value))}
+                                value={this.state.targetValue}
+                                type="number"
+                            />
+                        </InputGroup>
                     </Col>
                     <Col xs="auto">
                         <Button variant="success" onClick={this.run.bind(this)}>Run</Button>
