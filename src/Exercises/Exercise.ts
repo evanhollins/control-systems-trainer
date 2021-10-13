@@ -32,6 +32,7 @@ export abstract class Exercise implements Resetable {
     target: number;
     controlSystem: ControlSystem;
     abstract graphConfig: GraphConfig;
+    drawStep: number;
 
     abstract draw(p5: p5Type): void;
     protected abstract runStep(currentTime: Time): void;
@@ -44,6 +45,7 @@ export abstract class Exercise implements Resetable {
         this.starterCode = starterCode;
         this.target = target;
         this.controlSystem = () => 0;
+        this.drawStep = 0;
     }
 
     reset() {

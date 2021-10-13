@@ -1,4 +1,4 @@
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Label } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Label, ReferenceLine } from 'recharts';
 import { ExerciseData, GraphConfig } from '../Exercises/Exercise'
 
 const colors = [
@@ -12,7 +12,13 @@ const colors = [
     "#ffa600"
 ]
 
-function Graph(props: {data: Array<ExerciseData>, config: GraphConfig}) {
+interface GraphProps {
+    data: Array<ExerciseData>;
+    config: GraphConfig;
+    cursor: number;
+};
+
+function Graph(props: GraphProps) {
     return (
         <div>
             <ResponsiveContainer width="100%" height="100%">
@@ -34,6 +40,7 @@ function Graph(props: {data: Array<ExerciseData>, config: GraphConfig}) {
                             ""
                         }
                     </YAxis>
+                    <ReferenceLine x={props.cursor} stroke="black"/>
                     <CartesianGrid strokeDasharray="3 3" />
                     {
                         props.config.graphKeys ?

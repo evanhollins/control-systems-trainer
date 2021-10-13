@@ -18,24 +18,34 @@ function getParams() {
     return new URLSearchParams(window.location.search);
 }
 
-class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
+class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTime: number}> {
     private sim: Sim;
     private exercise: Exercise;
+    private displayTimerHandle: number | undefined;
 
     constructor(props: object) {
         super(props);
 
         this.state = {
-            graphData: []
+            graphData: [],
+            displayTime: 0
         }
 
         let params = getParams();
         this.exercise = GetExercise(params.get("exercise"));
 
         this.sim = new Sim(newGraphData => this.setState({ graphData: newGraphData }));
+
+        this.startDisplay = this.startDisplay.bind(this);
+        this.displayCallback = this.displayCallback.bind(this);
     }
 
     run(code: string) {
+        if (this.displayTimerHandle !== undefined) {
+            window.clearInterval(this.displayTimerHandle);
+            this.displayTimerHandle = undefined;
+        }
+
         // eslint-disable-next-line
         eval(code);
 
@@ -44,6 +54,27 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
         this.exercise.reset();
         this.sim.setup(this.exercise);
         this.sim.run();
+
+        window.setTimeout(this.startDisplay, 1500);
+    }
+
+    startDisplay() {
+        this.exercise.drawStep = 0;
+        this.setState({displayTime: 0})
+        this.displayTimerHandle = window.setInterval(this.displayCallback, this.exercise.timeStep.ms());
+    }
+
+    displayCallback() {
+        this.exercise.drawStep++;
+        let newTime = this.state.displayTime + this.exercise.timeStep.ms();
+
+        if (newTime === this.exercise.totalTime.ms()) {
+            clearInterval(this.displayTimerHandle)
+            this.displayTimerHandle = undefined;
+            this.setState({displayTime: 0});
+        } else {
+            this.setState({displayTime: newTime});
+        }
     }
 
     render() {
@@ -65,7 +96,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
                             <Preview draw={this.exercise.draw}/>
                         </Row>
                         <Row className="graph">
-                            <Graph data={this.state.graphData} config={this.exercise.graphConfig} />
+                            <Graph data={this.state.graphData} config={this.exercise.graphConfig} cursor={this.state.displayTime}/>
                         </Row>
                     </Col>
                 </Row>
