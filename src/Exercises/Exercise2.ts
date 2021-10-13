@@ -6,6 +6,7 @@ import Time from "../Sim/Physics/Units/Time";
 import Torque from "../Sim/Physics/Units/Torque";
 import Arm from "../Sim/Wheels/Arm";
 import { Exercise, Resetable } from "./Exercise";
+import p5Type from "p5";
 
 const starterCode = `
 /*
@@ -73,6 +74,10 @@ class Exercise1 extends Exercise {
             this.motor.torque
         ])
         this.joint.friction = this.friction;
+
+        this.reset = this.reset.bind(this);
+        this.runStep = this.runStep.bind(this);
+        this.draw = this.draw.bind(this);
     }
 
     reset() {
@@ -94,6 +99,10 @@ class Exercise1 extends Exercise {
             current,
             setPoint
         })
+    }
+
+    draw(p5: p5Type) {
+
     }
 }
 

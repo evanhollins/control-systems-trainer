@@ -1,4 +1,5 @@
 import Time from "../Sim/Physics/Units/Time";
+import p5Type from "p5";
 
 export type ExerciseData = {
     time: number;
@@ -32,6 +33,7 @@ export abstract class Exercise implements Resetable {
     controlSystem: ControlSystem;
     abstract graphConfig: GraphConfig;
 
+    abstract draw(p5: p5Type): void;
     protected abstract runStep(currentTime: Time): void;
 
     constructor(totalTime: Time, timeStep: Time, starterCode: string, target: number) {

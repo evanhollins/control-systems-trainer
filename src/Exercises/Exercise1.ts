@@ -6,6 +6,8 @@ import Time from "../Sim/Physics/Units/Time";
 import Torque from "../Sim/Physics/Units/Torque";
 import SteelFlywheel from "../Sim/Wheels/SteelFlywheel";
 import { Exercise, Resetable } from "./Exercise";
+import p5Type from "p5";
+import { angleToCoordinate } from '../Utility';
 
 const starterCode = `
 /*
@@ -62,13 +64,17 @@ class Exercise1 extends Exercise {
         super(Exercise1.totalTime, Exercise1.timeStep, starterCode, Exercise1.initialTarget.rps())
 
         this.joint.addInertia([
-            this.wheel.inertia.bind(this.wheel),
-            this.motor.inertia.bind(this.motor)
+            this.wheel.inertia,
+            this.motor.inertia
         ]);
         this.joint.addTorque([
-            this.motor.torque.bind(this.motor),
+            this.motor.torque,
         ])
         this.joint.friction = this.friction;
+
+        this.reset = this.reset.bind(this);
+        this.runStep = this.runStep.bind(this);
+        this.draw = this.draw.bind(this);
     }
 
     reset() {
@@ -90,6 +96,25 @@ class Exercise1 extends Exercise {
             current,
             setPoint
         })
+    }
+
+    draw(p5: p5Type) {
+        const centerX = p5.width / 2;
+        const centerY = p5.height / 2;
+
+        let radius = 75;
+        let angle = this.joint.current.position.rad();
+        let {x, y} = angleToCoordinate(angle, radius);
+
+		p5.background(255);
+
+        p5.fill(66, 135, 245);
+        p5.noStroke();
+        p5.ellipse(centerX, centerY, 200, 200);
+
+        p5.fill(66, 245, 111);
+        p5.noStroke();
+        p5.ellipse(centerX + x, centerY + y, 20, 20);
     }
 }
 

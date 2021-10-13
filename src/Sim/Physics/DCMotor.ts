@@ -6,7 +6,7 @@ import Length from './Units/Length';
 import Mass from './Units/Mass';
 import { RotationalState } from './RotationalJoint';
 import { Resetable } from '../../Exercises/Exercise';
-import { clamp } from "../Utility";
+import { clamp } from "../../Utility";
 
 class DCMotor implements Resetable {
     private operatingVoltage: Voltage;

@@ -7,6 +7,8 @@ import './App.css';
 
 import Editor from './Editor/Editor';
 import Graph from './Graph/Graph';
+import Preview from './Preview/Preview';
+
 import Sim from './Sim/Sim';
 import Time from './Sim/Physics/Units/Time';
 import { Exercise, ExerciseData } from './Exercises/Exercise'
@@ -60,7 +62,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
                     </Col>
                     <Col xs={6} className="section">
                         <Row className="preview">
-
+                            <Preview draw={this.exercise.draw}/>
                         </Row>
                         <Row className="graph">
                             <Graph data={this.state.graphData} config={this.exercise.graphConfig} />
