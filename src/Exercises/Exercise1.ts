@@ -36,6 +36,7 @@ window.runControlSystem = runControlSystem;
 `
 
 class Exercise1 extends Exercise {
+    name = "Exercise1";
     private static totalTime = Time.s(10);
     private static timeStep = Time.ms(100);
     private static initialTarget = RotationalVelocity.rps(10);

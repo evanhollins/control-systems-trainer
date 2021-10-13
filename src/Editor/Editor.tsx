@@ -5,6 +5,8 @@ import { Ace } from 'ace-builds';
 import 'ace-builds/src-min-noconflict/mode-javascript';
 import 'ace-builds/src-min-noconflict/theme-github';
 
+import Cookies from 'js-cookie';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,6 +19,7 @@ type EditorProps = {
     initialValue: string;
     initialTime: number;
     initialTarget: number;
+    exerciseName: string;
     onRun(code: string):  void;
     onTimeChange(time: number): void;
     onTargetChange(target: number): void;
@@ -38,18 +41,23 @@ class Editor extends React.Component<EditorProps, {}> {
         };
 
         this.editor = null;
-        this.onTimeChange.bind(this);
-        this.onTargetChange.bind(this);
+        this.onTimeChange = this.onTimeChange.bind(this);
+        this.onTargetChange = this.onTargetChange.bind(this);
+        this.onCodeChange = this.onCodeChange.bind(this);
+        this.setup = this.setup.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     setup(editor: Ace.Editor) {
         this.editor = editor;
-        this.reset();
+        let code = Cookies.get(this.props.exerciseName) || this.props.initialValue;
+        this.editor.setValue(code, -1)
     }
 
     reset() {
         if (this.editor) {
-            this.editor.setValue(this.props.initialValue, -1)
+            let code = this.props.initialValue;
+            this.editor.setValue(code, -1)
         }
     }
 
@@ -65,6 +73,10 @@ class Editor extends React.Component<EditorProps, {}> {
     onTargetChange(t: number) {
         this.setState({targetValue: t});
         this.props.onTargetChange(t);
+    }
+
+    onCodeChange(value: string) {
+        Cookies.set(this.props.exerciseName, value);
     }
 
     render() {
@@ -95,7 +107,7 @@ class Editor extends React.Component<EditorProps, {}> {
                         </InputGroup>
                     </Col>
                     <Col xs="auto">
-                        <Button variant="success" onClick={this.run.bind(this)}>Run</Button>
+                        <Button variant="success" onClick={this.run}>Run</Button>
                     </Col>
                 </Row>
                 <Row className="editorRow">
@@ -106,7 +118,8 @@ class Editor extends React.Component<EditorProps, {}> {
                         editorProps={{ $blockScrolling: true }}
                         height="100%"
                         width="100%"
-                        onLoad={this.setup.bind(this)}
+                        onLoad={this.setup}
+                        onChange={this.onCodeChange}
                     />
                 </Row>
             </Container>

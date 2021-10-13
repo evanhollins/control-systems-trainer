@@ -25,6 +25,7 @@ export interface Resetable {
 }
 
 export abstract class Exercise implements Resetable {
+    abstract name: string;
     data: Array<ExerciseData>;
     totalTime: Time;
     timeStep: Time;

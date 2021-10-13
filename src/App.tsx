@@ -83,6 +83,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTi
                 <Row className="app">
                     <Col xs={6} className="section editor">
                         <Editor 
+                            exerciseName={this.exercise.name}
                             initialValue={this.exercise.starterCode} 
                             initialTarget={this.exercise.target}
                             initialTime={this.exercise.totalTime.s()}

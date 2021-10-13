@@ -38,7 +38,8 @@ function runControlSystem(target, current) {
 window.runControlSystem = runControlSystem;
 `
 
-class Exercise1 extends Exercise {
+class Exercise2 extends Exercise {
+    name = "Exercise2";
     private static totalTime = Time.s(10);
     private static timeStep = Time.ms(10);
     private static initialTarget = RotationalPosition.deg(180);
@@ -64,7 +65,7 @@ class Exercise1 extends Exercise {
     };
 
     constructor() {
-        super(Exercise1.totalTime, Exercise1.timeStep, starterCode, Exercise1.initialTarget.deg())
+        super(Exercise2.totalTime, Exercise2.timeStep, starterCode, Exercise2.initialTarget.deg())
 
         this.joint.addInertia([
             this.arm.inertia,
@@ -106,4 +107,4 @@ class Exercise1 extends Exercise {
     }
 }
 
-export default Exercise1;
+export default Exercise2;
