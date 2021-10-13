@@ -11,6 +11,8 @@ class Wheel {
     constructor(radius: Length, mass: Mass) {
         this.radius = radius;
         this.mass = mass;
+
+        this.inertia = this.inertia.bind(this);
     }
 
     inertia(): number {

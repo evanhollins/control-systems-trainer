@@ -10,8 +10,11 @@ import Graph from './Graph/Graph';
 import Sim from './Sim/Sim';
 import Time from './Sim/Physics/Units/Time';
 import { Exercise, ExerciseData } from './Exercises/Exercise'
+import GetExercise from './Exercises/ExerciseFactory';
 
-import Exercise1 from './Exercises/Exercise1';
+function getParams() {
+    return new URLSearchParams(window.location.search);
+}
 
 class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
     private sim: Sim;
@@ -24,8 +27,10 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>}> {
             graphData: []
         }
 
+        let params = getParams();
+        this.exercise = GetExercise(params.get("exercise"));
+
         this.sim = new Sim(newGraphData => this.setState({ graphData: newGraphData }));
-        this.exercise = new Exercise1();
     }
 
     run(code: string) {

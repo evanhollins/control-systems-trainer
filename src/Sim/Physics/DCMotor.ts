@@ -6,6 +6,7 @@ import Length from './Units/Length';
 import Mass from './Units/Mass';
 import { RotationalState } from './RotationalJoint';
 import { Resetable } from '../../Exercises/Exercise';
+import { clamp } from "../Utility";
 
 class DCMotor implements Resetable {
     private operatingVoltage: Voltage;
@@ -55,6 +56,11 @@ class DCMotor implements Resetable {
         this.torqueConstant = this.stallTorque.nm() / this.noLoadSpeed.rps();
 
         this.suppliedVoltage = Voltage.v(0);
+
+        this.reset = this.reset.bind(this);
+        this.setPower = this.setPower.bind(this);
+        this.inertia = this.inertia.bind(this);
+        this.torque = this.torque.bind(this);
     }
 
     reset() {
@@ -62,12 +68,7 @@ class DCMotor implements Resetable {
     }
 
     setPower(power: number) {
-        if (power < -1) {
-            power = -1;
-        } else if (power > 1) {
-            power = 1;
-        }
-
+        power = clamp(power, -1, 1);
         this.suppliedVoltage = Voltage.v(this.operatingVoltage.v() * power);
     }
 
