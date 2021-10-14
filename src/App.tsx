@@ -8,17 +8,24 @@ import './App.css';
 import Editor from './Editor/Editor';
 import Graph from './Graph/Graph';
 import Preview from './Preview/Preview';
+import Console, { LogMessage } from './Console/Console';
 
 import Sim from './Sim/Sim';
 import Time from './Sim/Physics/Units/Time';
-import { Exercise, ExerciseData } from './Exercises/Exercise'
+import { Exercise, ExerciseData } from './Exercises/Exercise';
 import GetExercise from './Exercises/ExerciseFactory';
 
 function getParams() {
     return new URLSearchParams(window.location.search);
 }
 
-class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTime: number}> {
+interface AppState {
+    graphData: Array<ExerciseData>;
+    logMessages: Array<LogMessage>;
+    displayTime: number;
+}
+
+class App extends React.Component<{}, AppState> {
     private sim: Sim;
     private exercise: Exercise;
     private displayTimerHandle: number | undefined;
@@ -28,6 +35,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTi
 
         this.state = {
             graphData: [],
+            logMessages: [],
             displayTime: 0
         }
 
@@ -38,6 +46,7 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTi
 
         this.startDisplay = this.startDisplay.bind(this);
         this.displayCallback = this.displayCallback.bind(this);
+        this.run = this.run.bind(this);
     }
 
     run(code: string) {
@@ -46,16 +55,37 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTi
             this.displayTimerHandle = undefined;
         }
 
-        // eslint-disable-next-line
-        eval(code);
+        let func = undefined;
 
-        // @ts-ignore
-        this.exercise.controlSystem = window.runControlSystem;
-        this.exercise.reset();
-        this.sim.setup(this.exercise);
-        this.sim.run();
+        try {
+            // eslint-disable-next-line
+            func = eval(code);
+        } catch (e) {
+            this.setState({
+                logMessages: [{
+                    level: 'error',
+                    message: (e as Error).message
+                }]
+            })
+            return;
+        }
 
-        window.setTimeout(this.startDisplay, 1500);
+        if (func instanceof Function) {
+            // @ts-ignore
+            this.exercise.controlSystem = func;
+            this.exercise.reset();
+            this.sim.setup(this.exercise);
+            this.sim.run();
+            this.setState({logMessages: []})
+            window.setTimeout(this.startDisplay, 1500);
+        } else {
+            this.setState({
+                logMessages: [{
+                    level: 'error',
+                    message: "Function not found. Make sure you haven't changed the original control system function."
+                }]
+            })
+        }
     }
 
     startDisplay() {
@@ -81,16 +111,21 @@ class App extends React.Component<{}, {graphData: Array<ExerciseData>, displayTi
         return (
             <Container fluid>
                 <Row className="app">
-                    <Col xs={6} className="section editor">
-                        <Editor 
-                            exerciseName={this.exercise.name}
-                            initialValue={this.exercise.starterCode} 
-                            initialTarget={this.exercise.target}
-                            initialTime={this.exercise.totalTime.s()}
-                            onRun={this.run.bind(this)} 
-                            onTimeChange={s => {this.exercise.totalTime = Time.s(s)}}
-                            onTargetChange={t => {this.exercise.target = t}}
-                        />
+                    <Col xs={6} className="section">
+                        <Row className="editor">
+                            <Editor 
+                                exerciseName={this.exercise.name}
+                                initialValue={this.exercise.starterCode} 
+                                initialTarget={this.exercise.target}
+                                initialTime={this.exercise.totalTime.s()}
+                                onRun={this.run} 
+                                onTimeChange={s => {this.exercise.totalTime = Time.s(s)}}
+                                onTargetChange={t => {this.exercise.target = t}}
+                            />
+                        </Row>
+                        <Row className="console">
+                            <Console logMessages={this.state.logMessages}/>
+                        </Row>
                     </Col>
                     <Col xs={6} className="section">
                         <Row className="preview">

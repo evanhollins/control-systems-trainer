@@ -27,7 +27,7 @@ const starterCode = `
 *
 * Good luck!
 */
-function runControlSystem(target, current) {
+(target, current) => {
     if (current < target) {
         return 1;
     } else {
@@ -35,7 +35,6 @@ function runControlSystem(target, current) {
     }
 }
 
-window.runControlSystem = runControlSystem;
 `
 
 class Exercise2 extends Exercise {

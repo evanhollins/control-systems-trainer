@@ -28,11 +28,10 @@ const starterCode = `
 *
 * Good luck!
 */
-function runControlSystem(target, current) {
+(target, current) => {
     return 0;
 }
 
-window.runControlSystem = runControlSystem;
 `
 
 class Exercise1 extends Exercise {

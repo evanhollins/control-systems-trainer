@@ -46,6 +46,7 @@ class Editor extends React.Component<EditorProps, {}> {
         this.onCodeChange = this.onCodeChange.bind(this);
         this.setup = this.setup.bind(this);
         this.reset = this.reset.bind(this);
+        this.run = this.run.bind(this);
     }
 
     setup(editor: Ace.Editor) {

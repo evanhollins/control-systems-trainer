@@ -8,6 +8,12 @@
 
 .editor {
   border-right: 2px solid black;
+  height: 80%;
+}
+
+.console {
+  border-right: 2px solid black;
+  height: 20%
 }
 
 .preview {
