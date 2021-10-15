@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/control-systems-trainer/static/css/main.afb21dfd.chunk.css",
-    "main.js": "/control-systems-trainer/static/js/main.5d5ad0e4.chunk.js",
-    "main.js.map": "/control-systems-trainer/static/js/main.5d5ad0e4.chunk.js.map",
-    "runtime-main.js": "/control-systems-trainer/static/js/runtime-main.cfd4ba4e.js",
-    "runtime-main.js.map": "/control-systems-trainer/static/js/runtime-main.cfd4ba4e.js.map",
+    "main.css": "/control-systems-trainer/static/css/main.719e5777.chunk.css",
+    "main.js": "/control-systems-trainer/static/js/main.4dcb8ded.chunk.js",
+    "main.js.map": "/control-systems-trainer/static/js/main.4dcb8ded.chunk.js.map",
+    "runtime-main.js": "/control-systems-trainer/static/js/runtime-main.2916e327.js",
+    "runtime-main.js.map": "/control-systems-trainer/static/js/runtime-main.2916e327.js.map",
     "static/css/2.f2512455.chunk.css": "/control-systems-trainer/static/css/2.f2512455.chunk.css",
-    "static/js/2.2b3558fc.chunk.js": "/control-systems-trainer/static/js/2.2b3558fc.chunk.js",
-    "static/js/2.2b3558fc.chunk.js.map": "/control-systems-trainer/static/js/2.2b3558fc.chunk.js.map",
-    "static/js/3.17b60e01.chunk.js": "/control-systems-trainer/static/js/3.17b60e01.chunk.js",
-    "static/js/3.17b60e01.chunk.js.map": "/control-systems-trainer/static/js/3.17b60e01.chunk.js.map",
+    "static/js/2.6c262f7b.chunk.js": "/control-systems-trainer/static/js/2.6c262f7b.chunk.js",
+    "static/js/2.6c262f7b.chunk.js.map": "/control-systems-trainer/static/js/2.6c262f7b.chunk.js.map",
+    "static/js/3.ad4f0cae.chunk.js": "/control-systems-trainer/static/js/3.ad4f0cae.chunk.js",
+    "static/js/3.ad4f0cae.chunk.js.map": "/control-systems-trainer/static/js/3.ad4f0cae.chunk.js.map",
     "index.html": "/control-systems-trainer/index.html",
     "static/css/2.f2512455.chunk.css.map": "/control-systems-trainer/static/css/2.f2512455.chunk.css.map",
-    "static/css/main.afb21dfd.chunk.css.map": "/control-systems-trainer/static/css/main.afb21dfd.chunk.css.map",
-    "static/js/2.2b3558fc.chunk.js.LICENSE.txt": "/control-systems-trainer/static/js/2.2b3558fc.chunk.js.LICENSE.txt"
+    "static/css/main.719e5777.chunk.css.map": "/control-systems-trainer/static/css/main.719e5777.chunk.css.map",
+    "static/js/2.6c262f7b.chunk.js.LICENSE.txt": "/control-systems-trainer/static/js/2.6c262f7b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.cfd4ba4e.js",
+    "static/js/runtime-main.2916e327.js",
     "static/css/2.f2512455.chunk.css",
-    "static/js/2.2b3558fc.chunk.js",
-    "static/css/main.afb21dfd.chunk.css",
-    "static/js/main.5d5ad0e4.chunk.js"
+    "static/js/2.6c262f7b.chunk.js",
+    "static/css/main.719e5777.chunk.css",
+    "static/js/main.4dcb8ded.chunk.js"
   ]
 }
