@@ -1,4 +1,4 @@
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Label, ReferenceLine } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Label, ReferenceLine, Tooltip } from 'recharts';
 import { ExerciseData, GraphConfig } from '../Exercises/Exercise'
 
 const colors = [
@@ -22,7 +22,15 @@ function Graph(props: GraphProps) {
     return (
         <div>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={props.data} margin={{top: 15, right: 15, left: 30, bottom: 30}}>
+                <LineChart data={props.data} >
+                    <Tooltip 
+                        labelFormatter={(label: string) => {
+                            return "time: " + (parseInt(label) / 1000).toFixed(2) + "s";
+                        }}
+                        formatter={(value: string) => {
+                            return parseFloat(value).toFixed(2);
+                        }}
+                    />
                     <XAxis 
                         dataKey="time" 
                         tickFormatter={props.config.tickFormater} 
@@ -47,7 +55,7 @@ function Graph(props: GraphProps) {
                         props.config.graphKeys.map(((dataKey, i) => 
                             <Line dataKey={dataKey} stroke={colors[i]} dot={false} key={i}/>
                         ))
-                        : <div/>
+                        : null
                     }
                     <Legend/>
                 </LineChart>

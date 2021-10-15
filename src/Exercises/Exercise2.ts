@@ -42,7 +42,7 @@ const starterCode = `
 
 class Exercise2 extends Exercise {
     name = "Exercise2";
-    private static totalTime = Time.s(5);
+    private static totalTime = Time.s(3);
     private static timeStep = Time.ms(5);
     private static initialTarget = RotationalPosition.deg(180);
 
