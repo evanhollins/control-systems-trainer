@@ -8,7 +8,7 @@ import Mass from "../Sim/Physics/Units/Mass";
 import Length from "../Sim/Physics/Units/Length";
 import { Exercise, Resetable } from "./Exercise";
 import p5Type from "p5";
-import { RodAboutEnd } from "../Sim/Physics/MomentOfInertia";
+import { RodAboutEnd, PointMass } from "../Sim/Physics/MomentOfInertia";
 import { angleToCoordinate } from '../Utility';
 
 const starterCode = `
@@ -40,8 +40,8 @@ const starterCode = `
 
 `
 
-class Exercise4 extends Exercise {
-    name = "Exercise4";
+class Exercise5 extends Exercise {
+    name = "Exercise5";
     private static totalTime = Time.s(3);
     private static timeStep = Time.ms(5);
     private static initialTarget = RotationalPosition.deg(180);
@@ -51,7 +51,8 @@ class Exercise4 extends Exercise {
     private friction = new RotationalFriction(this.staticFriction, this.dynamicFriction);
     private joint = new RotationalJoint();
     private motor = new NeverestOrbital20();
-    private arm = new RodAboutEnd(Mass.g(300), Length.mm(300));
+    private arm = new RodAboutEnd(Mass.g(100), Length.mm(300));
+    private weight = new PointMass(Mass.g(200), Length.mm(300));
     private resetables: Array<Resetable> = [this.joint, this.motor];
 
     graphConfig = {
@@ -66,7 +67,7 @@ class Exercise4 extends Exercise {
     };
 
     constructor() {
-        super(Exercise4.totalTime, Exercise4.timeStep, starterCode, Exercise4.initialTarget.deg())
+        super(Exercise5.totalTime, Exercise5.timeStep, starterCode, Exercise5.initialTarget.deg())
 
         this.gravity = this.gravity.bind(this);
         this.reset = this.reset.bind(this);
@@ -85,10 +86,15 @@ class Exercise4 extends Exercise {
     }
 
     private gravity(state: RotationalState): Torque {
-        let force = this.arm.mass.kg() * 9.81;
-        let radius = 0.5 * this.arm.length.m() * Math.cos(state.position.rad());
+        let armForce = this.arm.mass.kg() * 9.81;
+        let armRaidus = 0.5 * this.arm.length.m() * Math.cos(state.position.rad());
 
-        return Torque.nm(force * radius);
+        let weightForce = this.weight.mass.kg() * 9.81;
+        let weightRadius = this.weight.length.m() * Math.cos(state.position.rad()); 
+
+        let torque = armForce * armRaidus + weightForce * weightRadius;
+
+        return Torque.nm(torque);
     }
 
     reset() {
@@ -118,7 +124,8 @@ class Exercise4 extends Exercise {
 
         let armLength = 200;
         let angle = this.joint.data[this.drawStep].position.rad();
-        let {x, y} = angleToCoordinate(angle, armLength);
+        let arm = angleToCoordinate(angle, armLength);
+        let weight = angleToCoordinate(angle, armLength - 20);
 
 		p5.background(255);
 
@@ -162,7 +169,15 @@ class Exercise4 extends Exercise {
         p5.stroke(p5.GRAY);
         p5.strokeWeight(20);
         p5.strokeCap("square");
-        p5.line(centerX, centerY, centerX + x, centerY + y);
+        p5.line(centerX, centerY, centerX + arm.x, centerY + arm.y);
+        p5.pop();
+
+        // Weight
+        p5.push();
+        p5.stroke(50);
+        p5.strokeWeight(50);
+        p5.strokeCap("square");
+        p5.line(centerX + weight.x, centerY + weight.y, centerX + arm.x, centerY + arm.y);
         p5.pop();
 
         // Motor shaft
@@ -174,4 +189,4 @@ class Exercise4 extends Exercise {
     }
 }
 
-export default Exercise4;
+export default Exercise5;
