@@ -8,7 +8,7 @@ import Mass from "../Sim/Physics/Units/Mass";
 import Length from "../Sim/Physics/Units/Length";
 import { Exercise, Resetable } from "./Exercise";
 import p5Type from "p5";
-import { RodAboutEnd } from "../Sim/Physics/MomentOfInertia";
+import { PointMass, RodAboutEnd } from "../Sim/Physics/MomentOfInertia";
 import { angleToCoordinate } from '../Utility';
 
 const starterCode = `
@@ -16,7 +16,7 @@ const starterCode = `
 * Your control system!
 *
 * You are trying to point an arm at a particular angle using a Neverest
-* orbital 20.
+* orbital 20. This time, we've added a weight on the end!
 * 
 * Your control system is handed two things, a target angle in degrees
 * and a current angle in degrees. Based on those, you must decide what
@@ -40,8 +40,8 @@ const starterCode = `
 
 `
 
-class Exercise2 extends Exercise {
-    name = "Exercise2";
+class Exercise3 extends Exercise {
+    name = "Exercise3";
     private static totalTime = Time.s(3);
     private static timeStep = Time.ms(5);
     private static initialTarget = RotationalPosition.deg(180);
@@ -52,6 +52,7 @@ class Exercise2 extends Exercise {
     private joint = new RotationalJoint();
     private motor = new NeverestOrbital20();
     private arm = new RodAboutEnd(Mass.g(100), Length.mm(300));
+    private weight = new PointMass(Mass.g(200), Length.mm(300));
     private resetables: Array<Resetable> = [this.joint, this.motor];
 
     graphConfig = {
@@ -66,10 +67,11 @@ class Exercise2 extends Exercise {
     };
 
     constructor() {
-        super(Exercise2.totalTime, Exercise2.timeStep, starterCode, Exercise2.initialTarget.deg())
+        super(Exercise3.totalTime, Exercise3.timeStep, starterCode, Exercise3.initialTarget.deg())
 
         this.joint.addInertia([
             this.arm.inertia,
+            this.weight.inertia,
             this.motor.inertia
         ]);
         this.joint.addTorque([
@@ -109,7 +111,8 @@ class Exercise2 extends Exercise {
 
         let armLength = 200;
         let angle = this.joint.data[this.drawStep].position.rad() + Math.PI;
-        let {x, y} = angleToCoordinate(angle, armLength);
+        let arm = angleToCoordinate(angle, armLength);
+        let weight = angleToCoordinate(angle, armLength - 20);
 
 		p5.background(255);
 
@@ -153,7 +156,15 @@ class Exercise2 extends Exercise {
         p5.stroke(p5.GRAY);
         p5.strokeWeight(20);
         p5.strokeCap("square");
-        p5.line(centerX, centerY, centerX + x, centerY + y);
+        p5.line(centerX, centerY, centerX + arm.x, centerY + arm.y);
+        p5.pop();
+
+        // Weight
+        p5.push();
+        p5.stroke(50);
+        p5.strokeWeight(50);
+        p5.strokeCap("square");
+        p5.line(centerX + weight.x, centerY + weight.y, centerX + arm.x, centerY + arm.y);
         p5.pop();
 
         // Motor shaft
@@ -165,4 +176,4 @@ class Exercise2 extends Exercise {
     }
 }
 
-export default Exercise2;
+export default Exercise3;
