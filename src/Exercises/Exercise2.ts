@@ -107,16 +107,61 @@ class Exercise2 extends Exercise {
         const centerX = p5.width / 2;
         const centerY = p5.height / 2;
 
-        let armLength = 150;
-        let angle = this.joint.data[this.drawStep].position.rad();
+        let armLength = 200;
+        let angle = this.joint.data[this.drawStep].position.rad() + Math.PI;
         let {x, y} = angleToCoordinate(angle, armLength);
 
 		p5.background(255);
 
-        p5.stroke(66, 135, 245);
+        // Coordinate system
+        p5.push();
+        p5.strokeWeight(1);
+        p5.stroke(100);
+        p5.line(centerX, 0, centerX, p5.height);
+        p5.line(0, centerY, p5.width, centerY);
+        p5.pop();
+
+        // Wires
+        p5.push();
         p5.strokeWeight(5);
-        p5.strokeCap("round");
+        p5.stroke(0);
+        p5.line(centerX - 2, centerY, centerX - 2, centerY - 100);
+        p5.stroke(255, 0, 0);
+        p5.line(centerX + 2, centerY, centerX + 2, centerY - 100);
+        p5.pop();
+
+        // Motor outline
+        p5.push();
+        p5.stroke(0);
+        p5.fill(255);
+        p5.strokeWeight(3);
+        p5.ellipse(centerX, centerY, 100, 100);
+        p5.pop();
+
+        // Bolt holes
+        p5.push();
+        p5.stroke(0);
+        p5.strokeWeight(2);
+        p5.ellipse(centerX - 35, centerY, 8, 8);
+        p5.ellipse(centerX + 35, centerY, 8, 8);
+        p5.ellipse(centerX, centerY - 35, 8, 8);
+        p5.ellipse(centerX, centerY + 35, 8, 8);
+        p5.pop();
+
+        // Arm
+        p5.push();
+        p5.stroke(p5.GRAY);
+        p5.strokeWeight(20);
+        p5.strokeCap("square");
         p5.line(centerX, centerY, centerX + x, centerY + y);
+        p5.pop();
+
+        // Motor shaft
+        p5.push();
+        p5.fill(0);
+        p5.noStroke();
+        p5.ellipse(centerX, centerY, 10, 10);
+        p5.pop();
     }
 }
 

@@ -22,7 +22,7 @@ function Graph(props: GraphProps) {
     return (
         <div>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={props.data} >
+                <LineChart data={props.data} margin={{top: 15, right: 15, left: 30, bottom: 30}}>
                     <Tooltip 
                         labelFormatter={(label: string) => {
                             return "time: " + (parseInt(label) / 1000).toFixed(2) + "s";

@@ -29,6 +29,7 @@ class App extends React.Component<{}, AppState> {
     private sim: Sim;
     private exercise: Exercise;
     private displayTimerHandle: number | undefined;
+    private static DisplayStep = Time.ms(10);
 
     constructor(props: object) {
         super(props);
@@ -91,14 +92,14 @@ class App extends React.Component<{}, AppState> {
     startDisplay() {
         this.exercise.drawStep = 0;
         this.setState({displayTime: 0})
-        this.displayTimerHandle = window.setInterval(this.displayCallback, this.exercise.timeStep.ms());
+        this.displayTimerHandle = window.setInterval(this.displayCallback, App.DisplayStep.ms());
     }
 
     displayCallback() {
-        this.exercise.drawStep++;
-        let newTime = this.state.displayTime + this.exercise.timeStep.ms();
+        this.exercise.drawStep += App.DisplayStep.ms() / this.exercise.timeStep.ms();
+        let newTime = this.state.displayTime + App.DisplayStep.ms();
 
-        if (newTime === this.exercise.totalTime.ms()) {
+        if (newTime >= this.exercise.totalTime.ms()) {
             clearInterval(this.displayTimerHandle)
             this.displayTimerHandle = undefined;
             this.setState({displayTime: 0});
