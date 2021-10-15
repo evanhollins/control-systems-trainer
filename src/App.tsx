@@ -29,7 +29,7 @@ class App extends React.Component<{}, AppState> {
     private sim: Sim;
     private exercise: Exercise;
     private displayTimerHandle: number | undefined;
-    private static DisplayStep = Time.ms(10);
+    private static DisplayStep = Time.ms(15);
 
     constructor(props: object) {
         super(props);
