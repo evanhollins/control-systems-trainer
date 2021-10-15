@@ -36,8 +36,8 @@ const starterCode = `
 
 class Exercise1 extends Exercise {
     name = "Exercise1";
-    private static totalTime = Time.s(10);
-    private static timeStep = Time.ms(100);
+    private static totalTime = Time.s(5);
+    private static timeStep = Time.ms(5);
     private static initialTarget = RotationalVelocity.rps(10);
 
     private staticFriction = Torque.nm(0.2);

@@ -14,6 +14,7 @@ export default class RedLine extends DCMotor {
     private static breakawayTorque = Torque.nm(0.05);
     private static noLoadSpeed = RotationalVelocity.rpm(18700);
     private static noLoadCurrent = Current.a(0.7);
+    private static resistance = 0.1;
     private static rotorRadius = Length.mm(12.5);
     private static rotorMass = Mass.lbs(0.5);
     private static gearRatio = 1;
@@ -26,6 +27,7 @@ export default class RedLine extends DCMotor {
             RedLine.breakawayTorque,
             RedLine.noLoadSpeed,
             RedLine.noLoadCurrent,
+            RedLine.resistance,
             RedLine.rotorRadius,
             RedLine.rotorMass,
             RedLine.gearRatio

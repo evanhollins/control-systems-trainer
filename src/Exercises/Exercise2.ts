@@ -4,9 +4,12 @@ import { RotationalJoint } from "../Sim/Physics/RotationalJoint";
 import RotationalPosition from "../Sim/Physics/Units/RotationalPosition";
 import Time from "../Sim/Physics/Units/Time";
 import Torque from "../Sim/Physics/Units/Torque";
-import Arm from "../Sim/Wheels/Arm";
+import Mass from "../Sim/Physics/Units/Mass";
+import Length from "../Sim/Physics/Units/Length";
 import { Exercise, Resetable } from "./Exercise";
 import p5Type from "p5";
+import { RodAboutEnd } from "../Sim/Physics/MomentOfInertia";
+import { angleToCoordinate } from '../Utility';
 
 const starterCode = `
 /*
@@ -39,8 +42,8 @@ const starterCode = `
 
 class Exercise2 extends Exercise {
     name = "Exercise2";
-    private static totalTime = Time.s(10);
-    private static timeStep = Time.ms(10);
+    private static totalTime = Time.s(5);
+    private static timeStep = Time.ms(5);
     private static initialTarget = RotationalPosition.deg(180);
 
     private staticFriction = Torque.nm(0.2);
@@ -48,9 +51,8 @@ class Exercise2 extends Exercise {
     private friction = new RotationalFriction(this.staticFriction, this.dynamicFriction);
     private joint = new RotationalJoint();
     private motor = new NeverestOrbital20();
-    private arm = new Arm();
+    private arm = new RodAboutEnd(Mass.g(100), Length.mm(500));
     private resetables: Array<Resetable> = [this.joint, this.motor];
-
 
     graphConfig = {
         yLabel: "degrees",
@@ -102,7 +104,19 @@ class Exercise2 extends Exercise {
     }
 
     draw(p5: p5Type) {
+        const centerX = p5.width / 2;
+        const centerY = p5.height / 2;
 
+        let armLength = 150;
+        let angle = this.joint.data[this.drawStep].position.rad();
+        let {x, y} = angleToCoordinate(angle, armLength);
+
+		p5.background(255);
+
+        p5.stroke(66, 135, 245);
+        p5.strokeWeight(5);
+        p5.strokeCap("round");
+        p5.line(centerX, centerY, centerX + x, centerY + y);
     }
 }
 

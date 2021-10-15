@@ -8,11 +8,12 @@ import Mass from '../Physics/Units/Mass';
 
 export default class NeverestOrbital20 extends DCMotor {
     private static operatingVoltage = Voltage.v(12);
-    private static stallTorque = Torque.oz_in(175);
+    private static stallTorque = Torque.nm(3.32);
     private static stallCurrent = Current.a(11.5);
     private static breakawayTorque = Torque.oz_in(6.4);
-    private static noLoadSpeed = RotationalVelocity.rpm(340);
+    private static noLoadSpeed = RotationalVelocity.rpm(285);
     private static noLoadCurrent = Current.a(0.2);
+    private static resistance = 1;
     private static rotorRadius = Length.mm(12);
     private static rotorMass = Mass.g(83);
     private static gearRatio = 19.2;
@@ -25,6 +26,7 @@ export default class NeverestOrbital20 extends DCMotor {
             NeverestOrbital20.breakawayTorque,
             NeverestOrbital20.noLoadSpeed,
             NeverestOrbital20.noLoadCurrent,
+            NeverestOrbital20.resistance,
             NeverestOrbital20.rotorRadius,
             NeverestOrbital20.rotorMass,
             NeverestOrbital20.gearRatio
