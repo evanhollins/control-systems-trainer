@@ -108,7 +108,7 @@ class Exercise2 extends Exercise {
         const centerY = p5.height / 2;
 
         let armLength = 200;
-        let angle = this.joint.data[this.drawStep].position.rad() + Math.PI;
+        let angle = this.joint.data[this.drawStep].position.rad();
         let {x, y} = angleToCoordinate(angle, armLength);
 
 		p5.background(255);
@@ -119,6 +119,19 @@ class Exercise2 extends Exercise {
         p5.stroke(100);
         p5.line(centerX, 0, centerX, p5.height);
         p5.line(0, centerY, p5.width, centerY);
+        p5.pop();
+        
+        // Text
+        p5.push();
+        p5.textAlign("center", "center");
+        p5.textSize(36);
+        p5.fill(255, 0, 0);
+        p5.text("N", centerX, 50);
+        p5.fill(0);
+        p5.text("S", centerX, p5.height - 50);
+        p5.text("W", 50, centerY);
+        p5.text("E", p5.width - 50, centerY);
+
         p5.pop();
 
         // Wires

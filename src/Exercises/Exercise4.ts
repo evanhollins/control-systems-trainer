@@ -1,6 +1,6 @@
 import NeverestOrbital20 from "../Sim/Motors/NeverestOrbital20";
 import RotationalFriction from "../Sim/Physics/RotationalFriction";
-import { RotationalJoint } from "../Sim/Physics/RotationalJoint";
+import { RotationalJoint, RotationalState } from "../Sim/Physics/RotationalJoint";
 import RotationalPosition from "../Sim/Physics/Units/RotationalPosition";
 import Time from "../Sim/Physics/Units/Time";
 import Torque from "../Sim/Physics/Units/Torque";
@@ -51,7 +51,7 @@ class Exercise4 extends Exercise {
     private friction = new RotationalFriction(this.staticFriction, this.dynamicFriction);
     private joint = new RotationalJoint();
     private motor = new NeverestOrbital20();
-    private arm = new RodAboutEnd(Mass.g(100), Length.mm(300));
+    private arm = new RodAboutEnd(Mass.g(300), Length.mm(300));
     private resetables: Array<Resetable> = [this.joint, this.motor];
 
     graphConfig = {
@@ -68,18 +68,27 @@ class Exercise4 extends Exercise {
     constructor() {
         super(Exercise4.totalTime, Exercise4.timeStep, starterCode, Exercise4.initialTarget.deg())
 
+        this.gravity = this.gravity.bind(this);
+        this.reset = this.reset.bind(this);
+        this.runStep = this.runStep.bind(this);
+        this.draw = this.draw.bind(this);
+
         this.joint.addInertia([
             this.arm.inertia,
             this.motor.inertia
         ]);
         this.joint.addTorque([
-            this.motor.torque
+            this.motor.torque,
+            this.gravity
         ])
         this.joint.friction = this.friction;
+    }
 
-        this.reset = this.reset.bind(this);
-        this.runStep = this.runStep.bind(this);
-        this.draw = this.draw.bind(this);
+    private gravity(state: RotationalState): Torque {
+        let force = this.arm.mass.kg() * 9.81;
+        let radius = -0.5 * this.arm.length.m() * Math.cos(state.position.rad());
+
+        return Torque.nm(force * radius);
     }
 
     reset() {
