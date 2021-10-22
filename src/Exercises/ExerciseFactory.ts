@@ -6,6 +6,7 @@ import Exercise4 from "./Exercise4";
 import Exercise5 from "./Exercise5";
 import Exercise6 from "./Exercise6";
 import Exercise7 from "./Exercise7";
+import Exercise8 from "./Exercise8";
 
 function GetExercise(exerciseNumber: string | null): Exercise {
     switch(exerciseNumber) {
@@ -23,6 +24,8 @@ function GetExercise(exerciseNumber: string | null): Exercise {
             return new Exercise6();
         case "7":
             return new Exercise7();
+        case "8":
+            return new Exercise8();
         default:
             return new Exercise1();
     }
