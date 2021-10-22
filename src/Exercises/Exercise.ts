@@ -2,7 +2,7 @@ import Time from "../Sim/Physics/Units/Time";
 import p5Type from "p5";
 
 export type ControlSystem = {
-    (target: number, current: number): number;
+    (target: number, current: number, timeStep?: number): number;
 }
 
 export type ExerciseData = {
