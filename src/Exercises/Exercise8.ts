@@ -178,6 +178,13 @@ class Exercise8 extends Exercise {
         p5.line(centerX + (elevatorWidth * 1.5), elevatorHeight / 2, centerX + (elevatorWidth * 1.5), elevatorHeight * (currentFloor + 1))
         p5.pop();
 
+        // Box
+        p5.push();
+        p5.noStroke();
+        p5.fill(100, 70, 30);
+        p5.rect(centerX + elevatorWidth / 4, p5.height - elevatorHeight / 2 - (currentFloor * elevatorHeight), elevatorWidth / 2, elevatorHeight / 2);
+        p5.pop();
+
         // Floors
         for (let i = 0; i < floors; i++) {
             p5.push();
