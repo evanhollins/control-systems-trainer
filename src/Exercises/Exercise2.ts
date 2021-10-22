@@ -30,7 +30,7 @@ const starterCode = `
 *
 * Good luck!
 */
-(target, current) => {
+(target, current, timeStep) => {
     if (current < target) {
         return 1;
     } else {
@@ -91,7 +91,7 @@ class Exercise2 extends Exercise {
 
     runStep(currentTime: Time) {
         let current = this.joint.current.position.deg();
-        let setPoint = this.controlSystem(this.target, current);
+        let setPoint = this.controlSystem(this.target, current, this.timeStep.s());
 
         if (setPoint === null || setPoint === undefined) {
             this.log("Control system didn't return anything. Make sure your function will always return a number.")

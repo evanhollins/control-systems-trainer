@@ -28,7 +28,7 @@ const starterCode = `
 *
 * Good luck!
 */
-(target, current) => {
+(target, current, timeStep) => {
     return 0;
 }
 
@@ -86,7 +86,7 @@ class Exercise1 extends Exercise {
 
     runStep(currentTime: Time) {
         let current = this.joint.current.velocity.rps();
-        let setPoint = this.controlSystem(this.target, current);
+        let setPoint = this.controlSystem(this.target, current, this.timeStep.s());
 
         if (setPoint === null || setPoint === undefined) {
             this.log("Control system didn't return anything. Make sure your function will always return a number.")
