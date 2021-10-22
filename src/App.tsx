@@ -30,9 +30,15 @@ class App extends React.Component<{}, AppState> {
     private exercise: Exercise;
     private displayTimerHandle: number | undefined;
     private static DisplayStep = Time.ms(15);
+    private logBuffer: Array<LogMessage> = [];
 
     constructor(props: object) {
         super(props);
+
+        this.startDisplay = this.startDisplay.bind(this);
+        this.displayCallback = this.displayCallback.bind(this);
+        this.run = this.run.bind(this);
+        this.print = this.print.bind(this);
 
         this.state = {
             graphData: [],
@@ -42,12 +48,12 @@ class App extends React.Component<{}, AppState> {
 
         let params = getParams();
         this.exercise = GetExercise(params.get("exercise"));
+        this.exercise.log = this.print;
 
-        this.sim = new Sim(newGraphData => this.setState({ graphData: newGraphData }));
+        this.sim = new Sim(graphData => this.setState({ graphData }));
 
-        this.startDisplay = this.startDisplay.bind(this);
-        this.displayCallback = this.displayCallback.bind(this);
-        this.run = this.run.bind(this);
+        // @ts-ignore
+        window.print = this.print;
     }
 
     run(code: string) {
@@ -74,10 +80,10 @@ class App extends React.Component<{}, AppState> {
         if (func instanceof Function) {
             // @ts-ignore
             this.exercise.controlSystem = func;
+            this.logBuffer = [];
             this.exercise.reset();
             this.sim.setup(this.exercise);
             this.sim.run();
-            this.setState({logMessages: []})
             window.setTimeout(this.startDisplay, 1500);
         } else {
             this.setState({
@@ -90,6 +96,8 @@ class App extends React.Component<{}, AppState> {
     }
 
     startDisplay() {
+        this.setState({logMessages: this.logBuffer});
+
         this.exercise.drawStep = 0;
         this.setState({displayTime: 0})
         this.displayTimerHandle = window.setInterval(this.displayCallback, App.DisplayStep.ms());
@@ -105,6 +113,31 @@ class App extends React.Component<{}, AppState> {
             this.setState({displayTime: 0});
         } else {
             this.setState({displayTime: newTime});
+        }
+    }
+
+    print(arg: any) {
+        let message: string | undefined;
+
+        switch (typeof arg) {
+            case "string":
+                message = arg;
+                break;
+            case "boolean":
+                message = arg ? "true" : "false";
+                break;
+            case "number":
+                message = arg.toString();
+                break;
+            case "object":
+                message = JSON.stringify(arg);
+                break;
+            default:
+                message = undefined;
+        }
+
+        if (message) {
+            this.logBuffer.push({level: "log", message});
         }
     }
 

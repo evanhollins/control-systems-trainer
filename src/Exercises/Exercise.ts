@@ -26,6 +26,8 @@ export interface Resetable {
     reset(): void;
 }
 
+type LogFunction = (message: string) => void;
+
 export abstract class Exercise implements Resetable {
     abstract name: string;
     data: Array<ExerciseData>;
@@ -36,6 +38,7 @@ export abstract class Exercise implements Resetable {
     controlSystem: ControlSystem;
     abstract graphConfig: GraphConfig;
     drawStep: number;
+    log: LogFunction;
 
     abstract draw(p5: p5Type): void;
     protected abstract runStep(currentTime: Time): void;
@@ -47,6 +50,7 @@ export abstract class Exercise implements Resetable {
         this.timeStep = timeStep;
         this.starterCode = starterCode;
         this.target = target;
+        this.log = () => {};
         this.controlSystem = () => 0;
         this.drawStep = 0;
     }

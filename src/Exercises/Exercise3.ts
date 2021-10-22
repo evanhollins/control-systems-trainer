@@ -94,6 +94,13 @@ class Exercise3 extends Exercise {
     runStep(currentTime: Time) {
         let current = this.joint.current.position.deg();
         let setPoint = this.controlSystem(this.target, current);
+
+        if (setPoint === null || setPoint === undefined) {
+            this.log("Control system didn't return anything. Make sure your function will always return a number.")
+        } else if (typeof setPoint !== "number") {
+            this.log("Control system returned something that wasn't a number. Make sure your function will always return a number.")
+        }
+
         this.motor.setPower(setPoint);
         this.joint.run(this.timeStep);
 
