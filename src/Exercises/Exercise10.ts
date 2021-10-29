@@ -11,10 +11,12 @@ import Mass from "../Sim/Physics/Units/Mass";
 
 const starterCode = `
 /*
-* You are trying to drive a robot to a position
-* Your control system is handed two things, a target rps
-* and a current rps. Based on those, you must decide what
-* to set the motor to, which is any number between -1 and 1.
+* You are trying to drive a robot to a position!
+*
+* Your control system is handed two things, current position
+* in meters, and a target position in meters. Based on those, 
+* you must decide what to set the motor to, which is any 
+* number between -1 and 1.
 *
 * Good luck!
 */
