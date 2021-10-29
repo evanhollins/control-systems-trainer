@@ -1,5 +1,6 @@
 import { Exercise } from "./Exercise";
 import Exercise1 from "./Exercise1";
+import Exercise10 from "./Exercise10";
 import Exercise2 from "./Exercise2";
 import Exercise3 from "./Exercise3";
 import Exercise4 from "./Exercise4";
@@ -29,6 +30,8 @@ function GetExercise(exerciseNumber: string | null): Exercise {
             return new Exercise8();
         case "9":
             return new Exercise9();
+        case "10":
+            return new Exercise10();
         default:
             return new Exercise1();
     }

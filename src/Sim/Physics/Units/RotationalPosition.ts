@@ -1,7 +1,8 @@
 import Unit from "./Unit";
 
 class RotationalPosition extends Unit {
-    private static conversion = Math.PI * 2 / 360;
+    private static deg2rad = Math.PI * 2 / 360;
+    private static rot2rad = Math.PI * 2;
 
     /**
      * @param rad Radians
@@ -26,14 +27,29 @@ class RotationalPosition extends Unit {
     }
 
     static deg(deg: number): RotationalPosition {
-        return new RotationalPosition(deg * RotationalPosition.conversion);
+        return new RotationalPosition(deg * RotationalPosition.deg2rad);
     }
 
     /**
      * @returns degrees
      */
     deg(): number {
-        return this.value / RotationalPosition.conversion;
+        return this.value / RotationalPosition.deg2rad;
+    }
+
+    /**
+     * @param rot rotations
+     * @returns {RotationalPosition}
+     */
+    static rot(rot: number): RotationalPosition {
+        return new RotationalPosition(rot * RotationalPosition.rot2rad);
+    }
+
+    /**
+     * @returns rotations
+     */
+    rot(): number {
+        return this.value / RotationalPosition.rot2rad;
     }
 }
 

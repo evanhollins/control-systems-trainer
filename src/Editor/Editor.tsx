@@ -91,7 +91,7 @@ class Editor extends React.Component<EditorProps, {}> {
                         <InputGroup>
                             <InputGroup.Text>Time (s)</InputGroup.Text>
                             <FormControl 
-                                onChange={(e) => this.onTimeChange(parseInt(e.target.value))}
+                                onChange={(e) => this.onTimeChange(parseFloat(e.target.value))}
                                 value={this.state.timeValue}
                                 type="number"
                             />
@@ -101,7 +101,7 @@ class Editor extends React.Component<EditorProps, {}> {
                         <InputGroup>
                             <InputGroup.Text>Target</InputGroup.Text>
                             <FormControl 
-                                onChange={(e) => this.onTargetChange(parseInt(e.target.value))}
+                                onChange={(e) => this.onTargetChange(parseFloat(e.target.value))}
                                 value={this.state.targetValue}
                                 type="number"
                             />
