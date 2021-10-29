@@ -141,8 +141,16 @@ class Exercise10 extends Exercise {
         for (let i = 0; i < numberOfLines + 1; i++) {
             p5.line(i * 2 * lineLength - xOffset, centerY + 50, i * 2 * lineLength + lineLength - xOffset, centerY + 50);
         }
+        p5.pop();
+
+        // Finish line
+        p5.push();
+        p5.stroke(201, 34, 34);
+        p5.strokeWeight(20);
+        p5.strokeCap(p5.SQUARE);
 
         let distanceToGo = this.target - distance;
+
         p5.line(
             centerX + (distanceToGo / 0.2) * (lineLength * 2), 
             centerY - bodyHeight * 0.5 + 50, 
