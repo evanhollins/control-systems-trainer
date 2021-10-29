@@ -110,7 +110,7 @@ class Exercise1 extends Exercise {
         const centerY = p5.height / 2;
 
         let radius = 75;
-        let angle = this.joint.data[this.drawStep].position.rad();
+        let angle = this.joint.data[this.drawStep] ? this.joint.data[this.drawStep].position.rad() : 0;
         let {x, y} = angleToCoordinate(angle, radius);
 
 		p5.background(255);
