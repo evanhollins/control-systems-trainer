@@ -19,30 +19,37 @@ type EditorProps = {
     initialValue: string;
     initialTime: number;
     initialTarget: number;
+    initialTimeStep: number;
     exerciseName: string;
+    showTimeStep: boolean;
     onRun(code: string):  void;
     onTimeChange(time: number): void;
     onTargetChange(target: number): void;
+    onTimeStepChange(timeStep: number): void;
 };
 
-class Editor extends React.Component<EditorProps, {}> {
+type EditorState = {
+    timeValue: number,
+    targetValue: number
+    timeStepValue: number;
+}
+
+class Editor extends React.Component<EditorProps, EditorState> {
     editor: Ace.Editor | null;
-    state: {
-        timeValue: number,
-        targetValue: number
-    }
 
     constructor(props: EditorProps) {
         super(props)
 
         this.state = {
             timeValue: props.initialTime,
-            targetValue: props.initialTarget
+            targetValue: props.initialTarget,
+            timeStepValue: props.initialTimeStep
         };
 
         this.editor = null;
         this.onTimeChange = this.onTimeChange.bind(this);
         this.onTargetChange = this.onTargetChange.bind(this);
+        this.onTimeStepChange = this.onTimeStepChange.bind(this);
         this.onCodeChange = this.onCodeChange.bind(this);
         this.setup = this.setup.bind(this);
         this.reset = this.reset.bind(this);
@@ -76,6 +83,11 @@ class Editor extends React.Component<EditorProps, {}> {
         this.props.onTargetChange(t);
     }
 
+    onTimeStepChange(t: number) {
+        this.setState({timeStepValue: t});
+        this.props.onTimeStepChange(t);
+    }
+
     onCodeChange(value: string) {
         Cookies.set(this.props.exerciseName, value);
     }
@@ -107,6 +119,20 @@ class Editor extends React.Component<EditorProps, {}> {
                             />
                         </InputGroup>
                     </Col>
+                    {
+                        this.props.showTimeStep ?
+                        <Col>
+                            <InputGroup>
+                                <InputGroup.Text>Time Step</InputGroup.Text>
+                                <FormControl 
+                                    onChange={(e) => this.onTimeStepChange(parseFloat(e.target.value))}
+                                    value={this.state.timeStepValue}
+                                    type="number"
+                                />
+                            </InputGroup>
+                        </Col> :
+                        null
+                    }
                     <Col xs="auto">
                         <Button variant="success" onClick={this.run}>Run</Button>
                     </Col>

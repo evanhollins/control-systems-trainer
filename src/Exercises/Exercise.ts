@@ -39,6 +39,7 @@ export abstract class Exercise implements Resetable {
     abstract graphConfig: GraphConfig;
     drawStep: number;
     log: LogFunction;
+    showTimeStep = false;
 
     abstract draw(p5: p5Type): void;
     protected abstract runStep(currentTime: Time): void;

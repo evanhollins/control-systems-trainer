@@ -152,9 +152,12 @@ class App extends React.Component<{}, AppState> {
                                 initialValue={this.exercise.starterCode} 
                                 initialTarget={this.exercise.target}
                                 initialTime={this.exercise.totalTime.s()}
+                                initialTimeStep={this.exercise.timeStep.ms()}
+                                showTimeStep={this.exercise.showTimeStep}
                                 onRun={this.run} 
                                 onTimeChange={s => {this.exercise.totalTime = Time.s(s)}}
                                 onTargetChange={t => {this.exercise.target = t}}
+                                onTimeStepChange={t => {this.exercise.timeStep = Time.ms(t)}}
                             />
                         </Row>
                         <Row className="console">
