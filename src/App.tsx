@@ -157,7 +157,7 @@ class App extends React.Component<{}, AppState> {
                                 onRun={this.run} 
                                 onTimeChange={s => {this.exercise.totalTime = Time.s(s)}}
                                 onTargetChange={t => {this.exercise.target = t}}
-                                onTimeStepChange={t => {this.exercise.timeStep = Time.ms(t)}}
+                                onTimeStepChange={t => {this.exercise.controlSystemTimeStep = Time.ms(t)}}
                             />
                         </Row>
                         <Row className="console">

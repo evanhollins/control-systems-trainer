@@ -40,6 +40,7 @@ export abstract class Exercise implements Resetable {
     drawStep: number;
     log: LogFunction;
     showTimeStep = false;
+    controlSystemTimeStep: Time;
 
     abstract draw(p5: p5Type): void;
     protected abstract runStep(currentTime: Time): void;
@@ -49,6 +50,7 @@ export abstract class Exercise implements Resetable {
 
         this.totalTime = totalTime;
         this.timeStep = timeStep;
+        this.controlSystemTimeStep = timeStep;
         this.starterCode = starterCode;
         this.target = target;
         this.log = () => {};

@@ -23,11 +23,8 @@ const starterCode = `
 * and a current angle in degrees. Based on those, you must decide what
 * to set the motor to, which is any number between -1 and 1.
 * 
-* Some examples:
-*   Full power forwards: 1
-*   Full power backwards: -1
-*   Half power forwards: 0.5
-*   No power: 0
+* For this exercise, we have added a sensor with much lower precision than before,
+* it only works in even degrees.
 *
 * Good luck!
 */
@@ -54,8 +51,8 @@ let Kd = 0;
 
 `
 
-class Exercise11 extends Exercise {
-    name = "Exercise11";
+class Exercise12 extends Exercise {
+    name = "Exercise12";
     private static totalTime = Time.s(3);
     private static timeStep = Time.ms(5);
     private static initialTarget = RotationalPosition.deg(180);
@@ -83,7 +80,7 @@ class Exercise11 extends Exercise {
     };
 
     constructor() {
-        super(Exercise11.totalTime, Exercise11.timeStep, starterCode, Exercise11.initialTarget.deg())
+        super(Exercise12.totalTime, Exercise12.timeStep, starterCode, Exercise12.initialTarget.deg())
 
         this.joint.addInertia([
             this.arm.inertia,
@@ -110,6 +107,7 @@ class Exercise11 extends Exercise {
 
     runStep(currentTime: Time) {
         let current = this.joint.current.position.deg();
+        current = Math.round(current / 4) * 4;
         let setPoint;
         if (currentTime.ms() - this.lastControlSystemUpdate.ms() >= this.controlSystemTimeStep.ms()) {
             setPoint = this.controlSystem(this.target, current, this.controlSystemTimeStep.s());
@@ -218,4 +216,4 @@ class Exercise11 extends Exercise {
     }
 }
 
-export default Exercise11;
+export default Exercise12;
