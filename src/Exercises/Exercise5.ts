@@ -51,8 +51,8 @@ class Exercise5 extends Exercise {
     private friction = new RotationalFriction(this.staticFriction, this.dynamicFriction);
     private joint = new RotationalJoint();
     private motor = new NeverestOrbital20();
-    private arm = new RodAboutEnd(Mass.g(100), Length.mm(300));
-    private weight = new PointMass(Mass.g(200), Length.mm(300));
+    private arm = new RodAboutEnd(Mass.g(50), Length.mm(200));
+    private weight = new PointMass(Mass.g(125), Length.mm(139));
     private resetables: Array<Resetable> = [this.joint, this.motor];
 
     graphConfig = {

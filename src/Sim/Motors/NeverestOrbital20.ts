@@ -13,7 +13,7 @@ export default class NeverestOrbital20 extends DCMotor {
     private static breakawayTorque = Torque.oz_in(6.4);
     private static noLoadSpeed = RotationalVelocity.rpm(285);
     private static noLoadCurrent = Current.a(0.2);
-    private static resistance = 1;
+    private static resistance = 0.8;
     private static rotorRadius = Length.mm(12);
     private static rotorMass = Mass.g(83);
     private static gearRatio = 19.2;
